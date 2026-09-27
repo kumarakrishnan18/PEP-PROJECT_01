@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perspectra | Admin Control</title>
+
+<style>
+
+/* =========================================================
+   PERSPECTRA ADMIN — THEME
+========================================================= */
+
+:root{
+    --bg:#080b1c;
+    --bg2:#11152d;
+
+    --card:rgba(18,22,48,.72);
+    --card-hover:rgba(27,32,65,.88);
+
+    --primary:#7667ff;
+    --secondary:#c451ff;
+    --cyan:#27c9e8;
+
+    --text:#f5f4ff;
+    --muted:#a9aac2;
+
+    --border:rgba(255,255,255,.10);
+
+    --success:#53d6a0;
+    --warning:#ffbd65;
+    --danger:#ff6d8b;
+
+    --shadow:0 25px 70px rgba(0,0,0,.30);
+}
+
+body.light{
+
+    --bg:#dce2ee;
+    --bg2:#e7eaf2;
+
+    --card:rgba(244,246,251,.82);
+    --card-hover:rgba(250,251,254,.95);
+
+    --primary:#6657d9;
+    --secondary:#9d4ac7;
+    --cyan:#138eaa;
+
+    --text:#25283a;
+    --muted:#646a7c;
+
+    --border:rgba(40,50,80,.12);
+
+    --success:#258f68;
+    --warning:#b87920;
+    --danger:#c53c5d;
+
+    --shadow:0 25px 65px rgba(61,71,105,.16);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    background:
+    radial-gradient(
+        circle at 15% 10%,
+        rgba(118,103,255,.13),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 85% 20%,
+        rgba(196,81,255,.10),
+        transparent 28%
+    ),
+    linear-gradient(
+        135deg,
+        var(--bg),
+        var(--bg2)
+    );
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    transition:
+    background .35s ease,
+    color .35s ease;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   DARK MODE STARS
+========================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background-image:
+    radial-gradient(
+        circle,
+        rgba(255,255,255,.80) 1px,
+        transparent 1.5px
+    );
+
+    background-size:170px 170px;
+
+    opacity:.30;
+
+    animation:
+    starsMove 18s linear infinite;
+
+    z-index:-1;
+}
+
+body.light::before{
+    opacity:0;
+}
+
+@keyframes starsMove{
+
+    from{
+        background-position:0 0;
+    }
+
+    to{
+        background-position:170px 170px;
+    }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    height:76px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    background:rgba(8,11,28,.68);
+
+    backdrop-filter:blur(20px);
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+body.light header{
+
+    background:rgba(235,238,246,.76);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+    font-size:18px;
+
+    font-weight:800;
+
+    letter-spacing:.3px;
+}
+
+.logo{
+
+    width:39px;
+
+    height:39px;
+
+    border-radius:50%;
+
+    position:relative;
+
+    border:
+    1.5px solid rgba(118,103,255,.65);
+
+    box-shadow:
+    0 0 17px rgba(118,103,255,.20);
+}
+
+.logo::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    border:
+    1.5px solid rgba(118,103,255,.82);
+
+    border-radius:50%;
+}
+
+.logo::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:14px;
+
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:
+    0 0 15px rgba(39,201,232,.55);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+}
+
+nav a{
+
+    text-decoration:none;
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    transition:.25s ease;
+}
+
+nav a:hover{
+
+    color:var(--text);
+
+    background:rgba(118,103,255,.10);
+}
+
+nav a.active{
+
+    color:var(--text);
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(118,103,255,.18),
+        rgba(196,81,255,.10)
+    );
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+}
+
+.icon-btn{
+
+    width:39px;
+
+    height:39px;
+
+    border-radius:50%;
+
+    border:
+    1px solid var(--border);
+
+    background:rgba(255,255,255,.045);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    transition:.25s ease;
+}
+
+.icon-btn:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+    rgba(118,103,255,.45);
+
+    background:
+    rgba(118,103,255,.13);
+}
+
+.admin-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    background:rgba(118,103,255,.10);
+
+    border:
+    1px solid rgba(118,103,255,.18);
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:var(--text);
+}
+
+.admin-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:
+    0 0 9px rgba(83,214,160,.7);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+
+    width:min(1220px, 90%);
+
+    margin:auto;
+
+    padding:55px 0 80px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    padding:10px 0 35px;
+
+    animation:
+    fadeUp .65s ease both;
+}
+
+.eyebrow{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--cyan);
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:1.7px;
+
+    text-transform:uppercase;
+
+    margin-bottom:14px;
+}
+
+.eyebrow span{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:
+    0 0 12px rgba(39,201,232,.65);
+}
+
+.hero h1{
+
+    font-size:
+    clamp(34px, 5vw, 58px);
+
+    line-height:1.02;
+
+    letter-spacing:-2px;
+
+    max-width:760px;
+
+    font-weight:900;
+}
+
+.hero h1 strong{
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary),
+        var(--cyan)
+    );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero p{
+
+    max-width:690px;
+
+    margin-top:18px;
+
+    color:var(--muted);
+
+    line-height:1.75;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   QUICK STATUS LINE
+========================================================= */
+
+.status-line{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:24px;
+
+    margin-top:28px;
+
+    padding:17px 0;
+
+    border-top:
+    1px solid var(--border);
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.status-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-size:13px;
+
+    color:var(--muted);
+}
+
+.status-item b{
+
+    color:var(--text);
+
+    font-size:14px;
+}
+
+.status-circle{
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--success);
+}
+
+
+/* =========================================================
+   SECTION NAV
+========================================================= */
+
+.section-nav{
+
+    margin:25px 0 35px;
+
+    display:flex;
+
+    gap:5px;
+
+    flex-wrap:wrap;
+
+    padding:5px;
+
+    width:max-content;
+
+    max-width:100%;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:13px;
+
+    background:
+    rgba(255,255,255,.035);
+}
+
+.section-btn{
+
+    border:0;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    padding:10px 15px;
+
+    border-radius:9px;
+
+    font-weight:800;
+
+    font-size:13px;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.section-btn:hover{
+
+    color:var(--text);
+}
+
+.section-btn.active{
+
+    color:var(--text);
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(118,103,255,.22),
+        rgba(196,81,255,.13)
+    );
+
+    box-shadow:
+    0 5px 18px rgba(0,0,0,.10);
+}
+
+
+/* =========================================================
+   STATS — SINGLE CLEAN STRIP
+========================================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    border-top:
+    1px solid var(--border);
+
+    border-bottom:
+    1px solid var(--border);
+
+    margin-bottom:45px;
+}
+
+.stat{
+
+    padding:23px 22px;
+
+    position:relative;
+}
+
+.stat:not(:last-child)::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:22px;
+
+    height:42px;
+
+    width:1px;
+
+    background:var(--border);
+}
+
+.stat-label{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
+.stat-value{
+
+    font-size:28px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+}
+
+.stat-value.purple{
+    color:var(--primary);
+}
+
+.stat-value.cyan{
+    color:var(--cyan);
+}
+
+.stat-value.green{
+    color:var(--success);
+}
+
+.stat-value.red{
+    color:var(--danger);
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.view{
+
+    display:none;
+
+    animation:
+    fadeUp .4s ease both;
+}
+
+.view.active{
+    display:block;
+}
+
+.section-heading{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    gap:20px;
+
+    margin-bottom:22px;
+}
+
+.section-heading h2{
+
+    font-size:23px;
+
+    font-weight:900;
+
+    letter-spacing:-.5px;
+}
+
+.section-heading p{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+
+    padding:10px 13px;
+
+    border-radius:10px;
+
+    min-width:230px;
+
+    transition:.25s ease;
+}
+
+.search:focus-within{
+
+    border-color:
+    rgba(118,103,255,.45);
+
+    box-shadow:
+    0 0 0 3px rgba(118,103,255,.07);
+}
+
+.search span{
+
+    color:var(--muted);
+
+    font-size:15px;
+}
+
+.search input{
+
+    width:100%;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:13px;
+}
+
+.search input::placeholder{
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   TABLE / LIST
+========================================================= */
+
+.list{
+
+    border-top:
+    1px solid var(--border);
+}
+
+.list-row{
+
+    display:grid;
+
+    grid-template-columns:
+    2fr 1fr 1fr 1fr auto;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:20px 8px;
+
+    border-bottom:
+    1px solid var(--border);
+
+    transition:.25s ease;
+}
+
+.list-row:hover{
+
+    padding-left:14px;
+
+    padding-right:14px;
+
+    background:
+    rgba(118,103,255,.035);
+}
+
+.list-head{
+
+    padding:12px 8px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    font-weight:900;
+}
+
+.user{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.avatar{
+
+    width:39px;
+
+    height:39px;
+
+    flex:none;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(118,103,255,.20),
+        rgba(196,81,255,.14)
+    );
+
+    border:
+    1px solid rgba(118,103,255,.22);
+
+    color:var(--text);
+
+    font-weight:900;
+
+    font-size:13px;
+}
+
+.user-info strong{
+
+    display:block;
+
+    font-size:14px;
+
+    font-weight:850;
+}
+
+.user-info span{
+
+    display:block;
+
+    margin-top:3px;
+
+    font-size:11px;
+
+    color:var(--muted);
+}
+
+.cell{
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+.cell strong{
+    color:var(--text);
+}
+
+
+/* =========================================================
+   STATUS TAG
+========================================================= */
+
+.tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.tag::before{
+
+    content:"";
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:currentColor;
+}
+
+.tag.active{
+    color:var(--success);
+}
+
+.tag.pending{
+    color:var(--warning);
+}
+
+.tag.blocked{
+    color:var(--danger);
+}
+
+.tag.review{
+    color:var(--cyan);
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.actions{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:6px;
+}
+
+.small-btn{
+
+    border:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,.035);
+
+    color:var(--text);
+
+    padding:8px 11px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.2s ease;
+}
+
+.small-btn:hover{
+
+    background:
+    rgba(118,103,255,.12);
+
+    border-color:
+    rgba(118,103,255,.35);
+
+    transform:translateY(-1px);
+}
+
+.small-btn.danger:hover{
+
+    background:
+    rgba(255,109,139,.10);
+
+    border-color:
+    rgba(255,109,139,.30);
+
+    color:var(--danger);
+}
+
+
+/* =========================================================
+   REPORT LIST
+========================================================= */
+
+.report-row{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 150px 130px auto;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:22px 8px;
+
+    border-bottom:
+    1px solid var(--border);
+
+    transition:.25s ease;
+}
+
+.report-row:hover{
+
+    background:
+    rgba(255,109,139,.025);
+
+    padding-left:14px;
+
+    padding-right:14px;
+}
+
+.report-title{
+
+    font-weight:850;
+
+    font-size:14px;
+}
+
+.report-title span{
+
+    display:block;
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    font-weight:500;
+}
+
+.reason{
+
+    font-size:12px;
+
+    color:var(--danger);
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   CONTENT MODERATION
+========================================================= */
+
+.content-item{
+
+    padding:24px 8px;
+
+    border-bottom:
+    1px solid var(--border);
+
+    display:grid;
+
+    grid-template-columns:1fr auto;
+
+    gap:20px;
+
+    align-items:center;
+}
+
+.content-main strong{
+
+    display:block;
+
+    font-size:14px;
+
+    margin-bottom:7px;
+}
+
+.content-main p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    max-width:800px;
+}
+
+.content-meta{
+
+    margin-top:8px;
+
+    display:flex;
+
+    gap:14px;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   MENTORS
+========================================================= */
+
+.mentor-row{
+
+    display:grid;
+
+    grid-template-columns:
+    1.7fr 1fr 1fr auto;
+
+    gap:20px;
+
+    align-items:center;
+
+    padding:21px 8px;
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+
+/* =========================================================
+   SUBJECTS
+========================================================= */
+
+.subject-list{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:0 35px;
+
+    border-top:
+    1px solid var(--border);
+}
+
+.subject{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:19px 4px;
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.subject-name{
+
+    font-weight:800;
+
+    font-size:14px;
+}
+
+.subject-count{
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.setting-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:22px 5px;
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.setting-row strong{
+
+    display:block;
+
+    font-size:14px;
+}
+
+.setting-row p{
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+.toggle{
+
+    width:46px;
+
+    height:25px;
+
+    border-radius:20px;
+
+    border:0;
+
+    background:
+    rgba(255,255,255,.12);
+
+    cursor:pointer;
+
+    position:relative;
+
+    transition:.25s ease;
+}
+
+.toggle::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:4px;
+
+    left:4px;
+
+    width:17px;
+
+    height:17px;
+
+    border-radius:50%;
+
+    background:white;
+
+    transition:.25s ease;
+}
+
+.toggle.on{
+
+    background:
+    var(--primary);
+}
+
+.toggle.on::after{
+
+    left:25px;
+}
+
+
+/* =========================================================
+   EMPTY / INFO MESSAGE
+========================================================= */
+
+.info-line{
+
+    margin-top:25px;
+
+    padding:17px 0;
+
+    border-top:
+    1px solid var(--border);
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    border-top:
+    1px solid var(--border);
+
+    padding:25px 6%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+footer strong{
+    color:var(--text);
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(14px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
+
+    nav a:nth-child(1),
+    nav a:nth-child(2){
+
+        display:none;
+    }
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .stat:nth-child(2)::after{
+        display:none;
+    }
+
+    .list-row{
+
+        grid-template-columns:
+        1.7fr 1fr auto;
+    }
+
+    .list-row > :nth-child(2),
+    .list-row > :nth-child(3){
+
+        display:none;
+    }
+
+    .report-row{
+
+        grid-template-columns:
+        1fr auto;
+    }
+
+    .report-row > :nth-child(2){
+
+        display:none;
+    }
+
+    .mentor-row{
+
+        grid-template-columns:
+        1fr auto;
+    }
+
+    .mentor-row > :nth-child(2),
+    .mentor-row > :nth-child(3){
+
+        display:none;
+    }
+
+    .subject-list{
+
+        grid-template-columns:1fr;
+    }
+}
+
+
+@media(max-width:650px){
+
+    header{
+
+        padding:0 4%;
+
+        height:68px;
+    }
+
+    .brand{
+
+        font-size:16px;
+    }
+
+    .logo{
+
+        width:35px;
+
+        height:35px;
+    }
+
+    nav{
+
+        display:none;
+    }
+
+    .admin-badge{
+
+        display:none;
+    }
+
+    main{
+
+        width:90%;
+
+        padding-top:38px;
+    }
+
+    .hero h1{
+
+        letter-spacing:-1px;
+    }
+
+    .status-line{
+
+        gap:15px;
+
+        flex-direction:column;
+    }
+
+    .section-nav{
+
+        width:100%;
+
+        overflow-x:auto;
+
+        flex-wrap:nowrap;
+    }
+
+    .section-btn{
+
+        white-space:nowrap;
+    }
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .stat{
+
+        padding:18px 10px;
+    }
+
+    .stat-value{
+
+        font-size:24px;
+    }
+
+    .section-heading{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
+    .search{
+
+        width:100%;
+
+        min-width:0;
+    }
+
+    .list-row{
+
+        grid-template-columns:
+        1fr auto;
+
+        padding:17px 3px;
+    }
+
+    .list-head{
+
+        display:none;
+    }
+
+    .report-row{
+
+        grid-template-columns:
+        1fr;
+
+        gap:12px;
+    }
+
+    .report-row .actions{
+
+        justify-content:flex-start;
+    }
+
+    .content-item{
+
+        grid-template-columns:1fr;
+    }
+
+    .mentor-row{
+
+        grid-template-columns:
+        1fr;
+
+        gap:13px;
+    }
+
+    .mentor-row .actions{
+
+        justify-content:flex-start;
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        padding:25px 5%;
+    }
+}
+
+</style>
+
+<style>
+
+/* PERSPECTRA GLOBAL DASHBOARD */
+.global-dashboard{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:28px;padding:14px 4%;background:rgba(10,14,39,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px);font-family:Inter,Arial,sans-serif}
+body.light .global-dashboard{background:rgba(255,255,255,.96);border-bottom-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-brand{font-weight:800;font-size:20px;letter-spacing:.4px;color:#f3f1ff;text-decoration:none;white-space:nowrap}
+body.light .global-dashboard .gd-brand{color:#171b33}
+.global-dashboard .gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+.global-dashboard .gd-nav a{color:rgba(243,241,255,.72);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s}
+body.light .global-dashboard .gd-nav a{color:rgba(23,27,51,.70)}
+.global-dashboard .gd-nav a:hover,.global-dashboard .gd-nav a.active{color:#fff;background:rgba(109,93,251,.18)}
+body.light .global-dashboard .gd-nav a:hover,body.light .global-dashboard .gd-nav a.active{color:#171b33;background:rgba(109,93,251,.12)}
+.global-dashboard .gd-actions{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.global-dashboard button,.global-dashboard .gd-login{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#f3f1ff;border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+body.light .global-dashboard button,body.light .global-dashboard .gd-login{background:rgba(20,24,60,.05);color:#171b33;border-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:none}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px}.global-dashboard .gd-brand{font-size:17px}.global-dashboard .gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.global-dashboard{flex-wrap:wrap}}
+
+</style>
+<style>body > header:not(.global-dashboard), body > nav:not(.global-dashboard){display:none !important;}</style>
+</head>
+
+
+<body>
+<header class="global-dashboard" id="globalDashboard">
+  <a class="gd-brand" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav">
+    <a href="discussion.html">Discussions & Feed</a>
+    <a href="leaderboard.html">Leaderboard & Skills</a>
+    <a href="admin.html" class="active">Admin</a>
+    <a href="aprofile.html">Profile</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="globalThemeBtn" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn'); return true;">Logout</a>
+  </div>
+</header>
+
+
+<script type="module" src="firebase-config.js"></script>
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <a href="admin.html" class="brand">
+
+        <div class="logo"></div>
+
+        <span>Perspectra</span>
+
+    </a>
+
+
+    <nav>
+
+        <a href="home.html">Home</a>
+
+    
+        <a href="leaderboard.html">Leaderboard</a>
+
+        <a href="admin.html" class="active">Admin</a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <div class="admin-badge">
+
+            <span class="admin-dot"></span>
+
+            Administrator
+
+        </div>
+
+
+        <button
+            class="icon-btn"
+            id="themeBtn"
+            title="Change theme"
+            onclick="toggleTheme()">
+
+            ☼
+
+        </button>
+
+
+        <button
+            class="icon-btn"
+            title="Admin profile"
+            onclick="window.location.href='aprofile.html'">
+
+            ◉
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+
+            <span></span>
+
+            Perspectra • Control Center
+
+        </div>
+
+
+        <h1>
+
+            Keep the community
+
+            <strong>safe, useful and purposeful.</strong>
+
+        </h1>
+
+
+        <p>
+
+            Monitor discussions and reports from one central administrative workspace.
+            Keep inappropriate content, unsafe links and harmful posts out of Perspectra
+            while protecting legitimate student discussions.
+
+        </p>
+
+
+        <div class="status-line">
+
+            <div class="status-item">
+
+                <span class="status-circle"></span>
+
+                <b>System operational</b>
+
+            </div>
+
+
+            <div class="status-item">
+
+                Last administrative activity:
+
+                <b>Today</b>
+
+            </div>
+
+
+            <div class="status-item">
+
+                Access level:
+
+                <b>Administrator</b>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- SECTION NAVIGATION -->
+
+    <div class="section-nav">
+
+        <button
+            class="section-btn active"
+            onclick="showSection('overview', this)">
+
+            Overview
+
+        </button>
+
+
+        <button
+            class="section-btn"
+            onclick="showSection('users', this)">
+
+            Users
+
+        </button>
+
+
+        <button
+            class="section-btn"
+            onclick="showSection('reports', this)">
+
+            Reports
+
+        </button>
+
+
+        <button
+            class="section-btn"
+            onclick="showSection('content', this)">
+
+            Content
+
+        </button>
+
+
+
+
+        <button
+            class="section-btn"
+            onclick="showSection('subjects', this)">
+
+            Subjects
+
+        </button>
+
+
+        <button
+            class="section-btn"
+            onclick="showSection('settings', this)">
+
+            Settings
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         STATS
+    ====================================================== -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Students
+            </div>
+
+            <div
+                class="stat-value purple"
+                id="studentCount">
+
+                —
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Mentors
+            </div>
+
+            <div
+                class="stat-value cyan"
+                id="mentorCount">
+
+                —
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Discussions
+            </div>
+
+            <div
+                class="stat-value green"
+                id="discussionCount">
+
+                —
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Open Reports
+            </div>
+
+            <div
+                class="stat-value red"
+                id="reportCount">
+
+                —
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         OVERVIEW
+    ====================================================== -->
+
+    <section
+        class="view active"
+        id="overview">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>Community moderation overview</h2>
+
+                <p>
+                    Focus on reports, flagged discussions and content that may violate community guidelines.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="list">
+
+            <div class="list-row">
+
+                <div class="user">
+
+                    <div class="avatar">R</div>
+
+                    <div class="user-info">
+
+                        <strong>Reported content</strong>
+
+                        <span>
+                            Review community flags
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cell">
+                    Priority
+                </div>
+
+
+                <div class="cell">
+                    <span class="tag pending">
+                        Needs review
+                    </span>
+                </div>
+
+
+                <div class="cell">
+                    Moderation
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="small-btn"
+                        onclick="showSectionById('reports')">
+
+                        Open
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="list-row">
+
+                <div class="user">
+
+                    <div class="avatar">M</div>
+
+                    <div class="user-info">
+
+                        <strong>Mentor management</strong>
+
+                        <span>
+                            Check mentor accounts and permissions
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cell">
+                    Discussions
+                </div>
+
+
+                <div class="cell">
+                    <span class="tag active">
+                        Available
+                    </span>
+                </div>
+
+
+                <div class="cell">
+                    Moderation
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="small-btn"
+                        onclick="showSectionById('content')">
+
+                        Review
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="list-row">
+
+                <div class="user">
+
+                    <div class="avatar">C</div>
+
+                    <div class="user-info">
+
+                        <strong>Community content</strong>
+
+                        <span>
+                            Review discussions and flagged posts
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cell">
+                    Content
+                </div>
+
+
+                <div class="cell">
+                    <span class="tag review">
+                        Monitor
+                    </span>
+                </div>
+
+
+                <div class="cell">
+                    Quality
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="small-btn"
+                        onclick="showSectionById('content')">
+
+                        Review
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-line">
+
+            <strong>Admin responsibility:</strong>
+
+            Review reported discussions and remove or restrict inappropriate content,
+            unsafe links and harmful posts while preserving legitimate peer learning.
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         USERS
+    ====================================================== -->
+
+    <section
+        class="view"
+        id="users">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>User management</h2>
+
+                <p>
+                    Manage student accounts and account status.
+                </p>
+
+            </div>
+
+
+            <div class="search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="userSearch"
+                    placeholder="Search users..."
+                    oninput="searchUsers()">
+
+            </div>
+
+        </div>
+
+
+        <div class="list">
+
+            <div class="list-row list-head">
+
+                <div>User</div>
+
+                <div>Role</div>
+
+                <div>Status</div>
+
+                <div>Activity</div>
+
+                <div>Action</div>
+
+            </div>
+
+
+            <!-- Backend will populate this area -->
+
+            <div
+                id="userList">
+
+                <div class="list-row">
+
+                    <div class="user">
+
+                        <div class="avatar">—</div>
+
+                        <div class="user-info">
+
+                            <strong>
+                                No users loaded
+                            </strong>
+
+                            <span>
+                                Connect your backend API to display users.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cell">—</div>
+
+                    <div class="cell">—</div>
+
+                    <div class="cell">—</div>
+
+                    <div class="actions">—</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         REPORTS
+    ====================================================== -->
+
+    <section
+        class="view"
+        id="reports">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>Reports & flags</h2>
+
+                <p>
+                    Review content reported by members of the community.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="list">
+
+            <div class="report-row">
+
+                <div class="report-title">
+
+                    No reports loaded
+
+                    <span>
+                        Connect your moderation API to display
+                        real student-submitted reports here.
+                    </span>
+
+                </div>
+
+
+                <div class="reason">
+                    —
+                </div>
+
+
+                <div class="cell">
+                    —
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="small-btn">
+
+                        Waiting for data
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-line">
+
+            <strong>Moderation workflow:</strong>
+
+            Report → Admin review → Action → Record decision.
+
+            Avoid removing content automatically without review.
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
+    <section
+        class="view"
+        id="content">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>Content moderation</h2>
+
+                <p>
+                    Monitor discussions, answers and community activity.
+                </p>
+
+            </div>
+
+
+            <div class="search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search content...">
+
+            </div>
+
+        </div>
+
+
+        <div class="list">
+
+            <div class="content-item">
+
+                <div class="content-main">
+
+                    <strong>
+                        No content loaded
+                    </strong>
+
+                    <p>
+
+                        Real discussions and answers will appear here
+                        after your backend API is connected.
+
+                    </p>
+
+
+                    <div class="content-meta">
+
+                        <span>Author: —</span>
+
+                        <span>Subject: —</span>
+
+                        <span>Status: —</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button class="small-btn">
+                        Review
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MENTORS
+    ====================================================== -->
+
+    <section
+        class="view"
+        id="settings">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>Platform settings</h2>
+
+                <p>
+                    Configure basic moderation and community controls.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="list">
+
+            <div class="setting-row">
+
+                <div>
+
+                    <strong>
+                        Community reporting
+                    </strong>
+
+                    <p>
+                        Allow users to flag inappropriate
+                        discussions and comments.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="toggle on"
+                    onclick="toggleSetting(this)">
+
+                </button>
+
+            </div>
+
+
+
+            <div class="setting-row">
+
+                <div>
+
+                    <strong>
+                        Mentor review requirement
+                    </strong>
+
+                    <p>
+                        Require mentor validation before
+                        skill points are awarded.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="toggle on"
+                    onclick="toggleSetting(this)">
+
+                </button>
+
+            </div>
+
+
+
+            <div class="setting-row">
+
+                <div>
+
+                    <strong>
+                        Moderation alerts
+                    </strong>
+
+                    <p>
+                        Notify administrators when new
+                        reports require attention.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="toggle on"
+                    onclick="toggleSetting(this)">
+
+                </button>
+
+            </div>
+
+
+
+            <div class="setting-row">
+
+                <div>
+
+                    <strong>
+                        Automatic harmful-word detection
+                    </strong>
+
+                    <p>
+                        Detect potentially inappropriate language
+                        before content reaches the moderation queue.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="toggle"
+                    onclick="toggleSetting(this)">
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-line">
+
+            These controls are currently frontend settings.
+            Connect them to your backend/database when you implement
+            administrator permissions.
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div>
+
+        <strong>Perspectra</strong>
+
+        — Different perspectives. Better learning.
+
+    </div>
+
+
+    <div>
+
+        Admin Control Center
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const savedTheme =
+    localStorage.getItem("perspectra-theme");
+
+if(savedTheme === "light"){
+
+    document.body.classList.add("light");
+
+}
+
+
+function updateThemeIcon(){
+
+    const button =
+        document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("light")){
+
+        button.innerHTML = "☾";
+
+    }else{
+
+        button.innerHTML = "☼";
+
+    }
+
+}
+
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light");
+
+    const theme =
+        document.body.classList.contains("light")
+        ? "light"
+        : "dark";
+
+    localStorage.setItem(
+        "perspectra-theme",
+        theme
+    );
+
+    updateThemeIcon();
+
+}
+
+
+updateThemeIcon();
+
+
+
+/* =========================================================
+   SECTION SWITCHING
+========================================================= */
+
+function showSection(sectionId, button){
+
+    document
+        .querySelectorAll(".view")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    document
+        .querySelectorAll(".section-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    const selected =
+        document.getElementById(sectionId);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+}
+
+
+function showSectionById(sectionId){
+
+    const button =
+        [...document.querySelectorAll(".section-btn")]
+        .find(btn =>
+            btn.getAttribute("onclick")
+            ?.includes("'" + sectionId + "'")
+        );
+
+    showSection(
+        sectionId,
+        button
+    );
+
+    window.scrollTo({
+        top:300,
+        behavior:"smooth"
+    });
+
+}
+
+
+
+/* =========================================================
+   USER SEARCH
+========================================================= */
+
+function searchUsers(){
+
+    const input =
+        document
+        .getElementById("userSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const rows =
+        document
+        .querySelectorAll("#userList .list-row");
+
+
+    rows.forEach(row => {
+
+        const text =
+            row.innerText.toLowerCase();
+
+        row.style.display =
+            text.includes(input)
+            ? "grid"
+            : "none";
+
+    });
+
+}
+
+
+
+/* =========================================================
+   SETTINGS TOGGLE
+========================================================= */
+
+function toggleSetting(button){
+
+    button.classList.toggle("on");
+
+}
+
+
+
+/* =========================================================
+   SUBJECT
+========================================================= */
+
+function addSubject(){
+
+    alert(
+        "Connect this button to your backend API to create a new subject."
+    );
+
+}
+
+
+
+/* =========================================================
+   BACKEND READY STRUCTURE
+========================================================= */
+
+/*
+   Later you can connect this dashboard to:
+
+   GET    /api/admin/dashboard
+   GET    /api/admin/users
+   PATCH  /api/admin/users/:id
+   GET    /api/admin/reports
+   PATCH  /api/admin/reports/:id
+   GET    /api/admin/content
+   DELETE /api/admin/content/:id
+   GET    /api/admin/subjects
+   POST   /api/admin/subjects
+   DELETE /api/admin/subjects/:id
+
+   IMPORTANT:
+   The admin permission MUST also be checked
+   on the backend. Hiding admin.html from normal
+   users is NOT enough for security.
+*/
+
+</script>
+
+
+<script type="module" src="firebase-admin.js"></script>
+<script id="perspectra-global-theme">
+(function(){
+  const KEY='perspectra-theme';
+  const oldKey='perspectraTheme';
+  const saved=localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark';
+  function apply(theme){
+    const t=theme==='light'?'light':'dark';
+    localStorage.setItem(KEY,t);
+    localStorage.setItem(oldKey,t);
+    document.documentElement.setAttribute('data-theme',t);
+    document.body.classList.toggle('light',t==='light');
+    const b=document.getElementById('globalThemeBtn');
+    if(b)b.textContent=t==='light'?'🌙':'☀️';
+  }
+  apply(saved);
+  const b=document.getElementById('globalThemeBtn');
+  if(b)b.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+})();
+</script>
+
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body>
+</html>

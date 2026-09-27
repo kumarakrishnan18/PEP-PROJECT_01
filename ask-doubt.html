@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PERSPECTRA — Ask a Doubt</title>
+<style>
+:root{--bg:#0A0E27;--surface:#171B33;--surface2:#1D2140;--border:rgba(255,255,255,.08);--text:#F3F1FF;--muted:rgba(243,241,255,.62);--primary:#6D5DFB;--cyan:#3FD0FF}
+body.light{--bg:#F1F1FC;--surface:#fff;--surface2:#F4F5FF;--border:rgba(20,24,60,.1);--text:#171B33;--muted:rgba(23,27,51,.62)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}.global-dashboard{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:28px;padding:14px 4%;background:var(--surface);border-bottom:1px solid var(--border)}.gd-brand{font-weight:800;font-size:20px;color:var(--text);text-decoration:none}.gd-nav{display:flex;gap:6px;flex:1;flex-wrap:wrap}.gd-nav a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600}.gd-nav a.active,.gd-nav a:hover{background:rgba(109,93,251,.15);color:var(--text)}.gd-actions{display:flex;gap:8px}.gd-actions button,.gd-login{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:9px;padding:8px 11px;cursor:pointer;text-decoration:none;font-weight:700;font-size:12px}.gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff;border:0}.page{max-width:850px;margin:45px auto;padding:0 22px}.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:0 15px 40px rgba(0,0,0,.18)}h1{margin:0 0 8px;font-size:28px}.intro{color:var(--muted);line-height:1.6;margin-bottom:24px}.field{margin-bottom:18px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font:inherit;outline:none}.field textarea{min-height:150px;resize:vertical}.submit{border:0;border-radius:10px;padding:12px 20px;background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff;font-weight:800;cursor:pointer}.status{margin-top:15px;color:var(--cyan);font-size:13px}@media(max-width:900px){.global-dashboard{flex-wrap:wrap;gap:10px}.gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}}
+/* Theme-aware category dropdown */
+select#category{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:#1D2140;color:#F3F1FF;outline:none;color-scheme:dark;}
+select#category option{background:#1D2140;color:#F3F1FF;}
+body.light select#category{background:#F4F5FF;color:#171B33;border-color:rgba(20,24,60,.1);color-scheme:light;}
+body.light select#category option{background:#F4F5FF;color:#171B33;}
+select#category:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(109,93,251,.14);}
+select#category option:checked{background:var(--primary);color:#fff;}
+
+    /* Dark theme support for the native category dropdown */
+    html[data-theme="dark"] select,
+    body.dark-theme select,
+    .dark-theme select {
+      color-scheme: dark;
+    }
+    html[data-theme="dark"] select option,
+    body.dark-theme select option,
+    .dark-theme select option {
+      background-color: #1f2937;
+      color: #f8fafc;
+    }
+
+</style></head><body>
+<header class="global-dashboard"><a class="gd-brand" href="home.html">PERSPECTRA</a><nav class="gd-nav"><a href="home.html">Discussions &amp; Feed</a><a href="ask-doubt.html" class="active">Ask a Doubt</a><a href="mentor.html">Mentor Hub</a><a href="leaderboard.html">Leaderboard &amp; Skills</a><a href="sprofile.html" id="profileNavLink">Profile</a></nav><div class="gd-actions"><button id="themeBtn">☀️</button><a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn')">Logout</a></div></header>
+<main class="page"><div class="card"><h1>Ask a Doubt</h1><p class="intro">Explain what you are struggling with. Other students and mentors can share perspectives and alternative approaches.</p><form id="doubtForm"><div class="field"><label>Category</label><select id="category" required><option value="">Select category</option><option>Academics</option><option>Projects</option><option>Coding</option><option>Career</option><option>Other</option></select></div><div class="field"><label>Subject</label><input id="subject" required placeholder="e.g. Data Structures"></div><div class="field"><label>Title</label><input id="title" required placeholder="What is your doubt?"></div><div class="field"><label>Description</label><textarea id="description" required placeholder="Explain your doubt clearly..."></textarea></div><button class="submit" type="submit">Post Doubt</button><div class="status" id="status"></div></form></div></main>
+<script>
+const KEY='perspectra-theme'; const oldKey='perspectraTheme'; function applyTheme(t){t=t==='light'?'light':'dark';localStorage.setItem(KEY,t);localStorage.setItem(oldKey,t);document.body.classList.toggle('light',t==='light');document.getElementById('themeBtn').textContent=t==='light'?'🌙':'☀️'} applyTheme(localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark');document.getElementById('themeBtn').onclick=()=>applyTheme(document.body.classList.contains('light')?'dark':'light');
+</script>
+<script type="module" src="firebase-doubt.js"></script>
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body></html>

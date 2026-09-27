@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perspectra | Mentor Hub</title>
+
+<style>
+
+/* =========================================================
+   PERSPECTRA THEME
+========================================================= */
+
+:root{
+
+    --bg:#080b1c;
+    --bg2:#11152d;
+
+    --primary:#7667ff;
+    --secondary:#c451ff;
+    --cyan:#27c9e8;
+
+    --text:#f5f4ff;
+    --muted:#a9aac2;
+
+    --border:rgba(255,255,255,.10);
+
+    --success:#53d6a0;
+    --warning:#ffbd65;
+    --danger:#ff6d8b;
+
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light{
+
+    --bg:#dce2ee;
+    --bg2:#e7eaf2;
+
+    --primary:#6657d9;
+    --secondary:#9d4ac7;
+    --cyan:#138eaa;
+
+    --text:#25283a;
+    --muted:#646a7c;
+
+    --border:rgba(40,50,80,.12);
+
+    --success:#258f68;
+    --warning:#b87920;
+    --danger:#c53c5d;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color:var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(92,76,210,.30),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(60,120,230,.20),
+            transparent 34%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    transition:
+        background .4s ease,
+        color .4s ease;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   STARS — DARK MODE ONLY
+========================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 1px,
+            transparent 1.5px
+        );
+
+    background-size:170px 170px;
+
+    opacity:.30;
+
+    animation:
+        starsMove 18s linear infinite;
+
+}
+
+body.light::before{
+    opacity:0;
+}
+
+@keyframes starsMove{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+========================================================= */
+
+.orb{
+
+    position:fixed;
+
+    border-radius:50%;
+
+    filter:blur(70px);
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+.orb.one{
+
+    width:300px;
+    height:300px;
+
+    left:-130px;
+    top:80px;
+
+    background:#6658e8;
+
+    opacity:.25;
+
+}
+
+.orb.two{
+
+    width:320px;
+    height:320px;
+
+    right:-130px;
+    bottom:30px;
+
+    background:#b347db;
+
+    opacity:.18;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+
+    width:min(1120px,92%);
+
+    margin:auto;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+
+    position:sticky;
+
+    top:18px;
+
+    z-index:100;
+
+    width:min(1120px,92%);
+
+    margin:18px auto 0;
+
+    padding:12px 17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    background:
+        rgba(8,11,28,.70);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 12px 40px
+        rgba(0,0,0,.15);
+
+}
+
+body.light header{
+
+    background:
+        rgba(239,242,248,.80);
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    font-weight:850;
+
+    letter-spacing:.6px;
+
+}
+
+.logo{
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    position:relative;
+
+    border:
+        1.5px solid
+        rgba(118,103,255,.65);
+
+    box-shadow:
+        0 0 17px
+        rgba(118,103,255,.20);
+
+}
+
+.logo::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    border:
+        1.5px solid
+        rgba(118,103,255,.82);
+
+    border-radius:50%;
+
+}
+
+.logo::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:14px;
+
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:
+        0 0 15px
+        rgba(39,201,232,.55);
+
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+
+}
+
+nav a{
+
+    color:var(--muted);
+
+    text-decoration:none;
+
+    padding:9px 11px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    transition:.25s ease;
+
+}
+
+nav a:hover{
+
+    color:var(--text);
+
+    background:
+        rgba(118,103,255,.12);
+
+}
+
+nav a.active{
+
+    color:var(--text);
+
+    background:
+        rgba(118,103,255,.16);
+
+}
+
+
+/* =========================================================
+   HEADER BUTTONS
+========================================================= */
+
+.actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.icon-btn{
+
+    width:39px;
+    height:39px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:50%;
+
+    background:
+        rgba(118,103,255,.08);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s ease;
+
+}
+
+.icon-btn:hover{
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(118,103,255,.45);
+
+    box-shadow:
+        0 0 20px
+        rgba(118,103,255,.18);
+
+}
+
+
+/* =========================================================
+   MAIN INTRO
+========================================================= */
+
+main{
+
+    padding-top:70px;
+
+}
+
+
+/* =========================================================
+   MENTOR INTRO
+========================================================= */
+
+.intro{
+
+    max-width:820px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.eyebrow{
+
+    color:var(--cyan);
+
+    font-size:11px;
+
+    font-weight:850;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:15px;
+
+}
+
+.intro h1{
+
+    font-size:
+        clamp(38px,6vw,64px);
+
+    line-height:1.05;
+
+    letter-spacing:-2.5px;
+
+}
+
+.gradient{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary),
+            var(--cyan)
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+
+}
+
+.intro p{
+
+    max-width:700px;
+
+    margin:20px auto 0;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   MENTOR IDENTITY
+========================================================= */
+
+.mentor-identity{
+
+    margin:45px auto 0;
+
+    max-width:850px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    padding-bottom:28px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.mentor-avatar{
+
+    width:76px;
+    height:76px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:27px;
+
+    font-weight:850;
+
+    color:white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(118,103,255,.20);
+
+}
+
+.mentor-info h2{
+
+    font-size:24px;
+
+}
+
+.mentor-info p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:5px;
+
+}
+
+.mentor-status{
+
+    margin-left:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:var(--success);
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+.status-dot{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:
+        0 0 10px
+        rgba(83,214,160,.55);
+
+}
+
+
+/* =========================================================
+   STATS — SIMPLE ROW, NOT BOXES
+========================================================= */
+
+.stats{
+
+    max-width:850px;
+
+    margin:30px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    border-top:
+        1px solid
+        var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.stat{
+
+    padding:23px 15px;
+
+    text-align:center;
+
+    position:relative;
+
+}
+
+.stat:not(:last-child)::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:22px;
+
+    bottom:22px;
+
+    width:1px;
+
+    background:
+        var(--border);
+
+}
+
+.stat-label{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    font-weight:750;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.stat-value{
+
+    margin-top:7px;
+
+    font-size:27px;
+
+    font-weight:900;
+
+}
+
+.purple{
+    color:var(--primary);
+}
+
+.cyan{
+    color:var(--cyan);
+}
+
+.warning{
+    color:var(--warning);
+}
+
+.danger{
+    color:var(--danger);
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs{
+
+    margin:40px auto 25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.tab{
+
+    position:relative;
+
+    border:0;
+
+    background:none;
+
+    color:var(--muted);
+
+    padding:12px 4px 15px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    transition:.25s ease;
+
+}
+
+.tab:hover{
+
+    color:var(--text);
+
+}
+
+.tab.active{
+
+    color:var(--text);
+
+}
+
+.tab.active::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:-1px;
+
+    height:2px;
+
+    border-radius:5px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--cyan)
+        );
+
+}
+
+
+/* =========================================================
+   VIEWS
+========================================================= */
+
+.view{
+
+    display:none;
+
+    animation:
+        fadeUp .4s ease;
+
+}
+
+.view.active{
+
+    display:block;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.section-heading h2{
+
+    font-size:25px;
+
+}
+
+.section-heading p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:7px;
+
+}
+
+
+/* =========================================================
+   REVIEW AREA — ONE CLEAN AREA
+========================================================= */
+
+.review-area{
+
+    max-width:850px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:50px 25px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.empty-symbol{
+
+    width:75px;
+    height:75px;
+
+    margin:0 auto 22px;
+
+    border-radius:50%;
+
+    position:relative;
+
+    display:grid;
+
+    place-items:center;
+
+    border:
+        1px solid
+        rgba(118,103,255,.45);
+
+}
+
+.empty-symbol::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:10px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(118,103,255,.50);
+
+}
+
+.empty-symbol::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:21px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(118,103,255,.65);
+
+}
+
+.empty-core{
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:
+        0 0 18px
+        rgba(39,201,232,.55);
+
+}
+
+.review-area h3{
+
+    font-size:20px;
+
+    margin-bottom:9px;
+
+}
+
+.review-area p{
+
+    max-width:600px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   POINT SYSTEM — SIMPLE LIST
+========================================================= */
+
+.point-system{
+
+    max-width:850px;
+
+    margin:35px auto 0;
+
+}
+
+.point-system h3{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+}
+
+.point-system>p{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-bottom:15px;
+
+}
+
+.point-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 2px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.point-row span:first-child{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+.point{
+
+    font-weight:900;
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================================
+   MODERATION
+========================================================= */
+
+.moderation-area{
+
+    max-width:850px;
+
+    margin:auto;
+
+}
+
+.moderation-intro{
+
+    text-align:center;
+
+    padding-bottom:28px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.moderation-intro h2{
+
+    font-size:25px;
+
+}
+
+.moderation-intro p{
+
+    margin-top:8px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+.moderation-empty{
+
+    text-align:center;
+
+    padding:45px 20px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.moderation-empty h3{
+
+    margin-top:18px;
+
+    font-size:19px;
+
+}
+
+.moderation-empty p{
+
+    max-width:580px;
+
+    margin:8px auto 0;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+.safety-note{
+
+    margin-top:25px;
+
+    padding:5px 0;
+
+}
+
+.safety-note strong{
+
+    color:var(--danger);
+
+    font-size:13px;
+
+}
+
+.safety-note p{
+
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   GUIDELINES
+========================================================= */
+
+.guidelines{
+
+    max-width:850px;
+
+    margin:auto;
+
+}
+
+.guideline{
+
+    display:flex;
+
+    gap:18px;
+
+    padding:20px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+.guideline:last-child{
+
+    border-bottom:0;
+
+}
+
+.guideline-number{
+
+    width:30px;
+    height:30px;
+
+    flex-shrink:0;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:50%;
+
+    color:var(--primary);
+
+    background:
+        rgba(118,103,255,.10);
+
+    font-size:11px;
+
+    font-weight:900;
+
+}
+
+.guideline-content strong{
+
+    font-size:14px;
+
+}
+
+.guideline-content p{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin-top:5px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    max-width:850px;
+
+    margin:70px auto 0;
+
+    padding:
+        25px 0
+        35px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    header{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    nav{
+
+        order:3;
+
+        width:100%;
+
+        justify-content:center;
+
+        overflow:auto;
+
+    }
+
+}
+
+@media(max-width:650px){
+
+    main{
+
+        padding-top:50px;
+
+    }
+
+    .mentor-identity{
+
+        align-items:flex-start;
+
+    }
+
+    .mentor-status{
+
+        margin-left:0;
+
+    }
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .stat:nth-child(2)::after{
+
+        display:none;
+
+    }
+
+    .tabs{
+
+        gap:16px;
+
+        overflow-x:auto;
+
+        justify-content:flex-start;
+
+    }
+
+    .tab{
+
+        white-space:nowrap;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .brand span{
+
+        display:none;
+
+    }
+
+    nav a{
+
+        font-size:10px;
+
+        padding:8px 6px;
+
+    }
+
+    .mentor-identity{
+
+        flex-wrap:wrap;
+
+    }
+
+    .mentor-avatar{
+
+        width:62px;
+        height:62px;
+
+    }
+
+    .mentor-info h2{
+
+        font-size:20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation:none !important;
+
+        transition:none !important;
+
+    }
+
+}
+
+</style>
+
+<style>
+
+/* PERSPECTRA GLOBAL DASHBOARD */
+.global-dashboard{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:28px;padding:14px 4%;background:rgba(10,14,39,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px);font-family:Inter,Arial,sans-serif}
+body.light .global-dashboard{background:rgba(255,255,255,.96);border-bottom-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-brand{font-weight:800;font-size:20px;letter-spacing:.4px;color:#f3f1ff;text-decoration:none;white-space:nowrap}
+body.light .global-dashboard .gd-brand{color:#171b33}
+.global-dashboard .gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+.global-dashboard .gd-nav a{color:rgba(243,241,255,.72);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s}
+body.light .global-dashboard .gd-nav a{color:rgba(23,27,51,.70)}
+.global-dashboard .gd-nav a:hover,.global-dashboard .gd-nav a.active{color:#fff;background:rgba(109,93,251,.18)}
+body.light .global-dashboard .gd-nav a:hover,body.light .global-dashboard .gd-nav a.active{color:#171b33;background:rgba(109,93,251,.12)}
+.global-dashboard .gd-actions{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.global-dashboard button,.global-dashboard .gd-login{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#f3f1ff;border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+body.light .global-dashboard button,body.light .global-dashboard .gd-login{background:rgba(20,24,60,.05);color:#171b33;border-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:none}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px}.global-dashboard .gd-brand{font-size:17px}.global-dashboard .gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.global-dashboard{flex-wrap:wrap}}
+
+</style>
+<style>body > header:not(.global-dashboard), body > nav:not(.global-dashboard){display:none !important;}</style>
+</head>
+
+
+<body>
+<header class="global-dashboard" id="globalDashboard">
+  <a class="gd-brand" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav">
+    <a href="discussion.html?role=mentor">Discussions & Feed</a>
+    <a href="mentor.html">Mentor Hub</a>
+    <a href="mprofile.html" class="active">Profile</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="globalThemeBtn" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn'); return true;">Logout</a>
+  </div>
+</header>
+
+
+<!-- BACKGROUND -->
+
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <a href="home.html" class="brand">
+
+        <div class="logo"></div>
+
+        <span>PERSPECTRA</span>
+
+    </a>
+
+
+    <nav>
+
+        <a href="discussion.html?role=mentor">
+            Discussions & Feed
+        </a>
+
+        <a href="mentor.html"
+           class="active">
+
+            Mentor Hub
+
+        </a>
+
+
+    </nav>
+
+
+    <div class="actions">
+
+        <button
+            class="icon-btn"
+            id="themeBtn"
+            title="Change theme">
+
+            ☾
+
+        </button>
+
+
+        <!-- Mentor profile -->
+
+        <button
+            class="icon-btn"
+            onclick="window.location.href='mprofile.html'"
+            title="Mentor Profile">
+
+            ◉
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- =================================================
+         INTRO
+    ================================================= -->
+
+    <section class="intro">
+
+        <div class="eyebrow">
+
+            PERSPECTRA • MENTOR HUB
+
+        </div>
+
+
+        <h1>
+
+            Guide better
+
+            <span class="gradient">
+                perspectives.
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Review student contributions, recognize
+            meaningful solutions and help maintain a
+            fair and useful learning community.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MENTOR IDENTITY
+    ================================================= -->
+
+    <section class="mentor-identity">
+
+
+        <div class="mentor-avatar">
+
+            M
+
+        </div>
+
+
+        <div class="mentor-info">
+
+            <h2>
+
+                Mentor Workspace
+
+            </h2>
+
+            <p>
+
+                Review • Guide • Recognize
+
+            </p>
+
+        </div>
+
+
+        <div class="mentor-status">
+
+            <span class="status-dot"></span>
+
+            Mentor Active
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         SIMPLE STATISTICS
+    ================================================= -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                Pending Reviews
+
+            </div>
+
+            <div
+                class="stat-value purple"
+                id="pendingCount">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                Reviewed
+
+            </div>
+
+            <div
+                class="stat-value cyan"
+                id="reviewedCount">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                Points Awarded
+
+            </div>
+
+            <div
+                class="stat-value warning"
+                id="pointsAwarded">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+
+                Flagged
+
+            </div>
+
+            <div
+                class="stat-value danger"
+                id="flaggedCount">
+
+                0
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         TABS
+    ================================================= -->
+
+    <div class="tabs">
+
+
+        <button
+            class="tab active"
+            data-view="reviews">
+
+            Review Answers
+
+        </button>
+
+
+        <button
+            class="tab"
+            data-view="moderation">
+
+            Moderation
+
+        </button>
+
+
+        <button
+            class="tab"
+            data-view="guidelines">
+
+            Guidelines
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         REVIEW ANSWERS
+    ================================================= -->
+
+    <section
+        class="view active"
+        id="reviews">
+
+
+        <div class="section-heading">
+
+            <h2>
+
+                Answers waiting for review
+
+            </h2>
+
+            <p>
+
+                Student contributions requiring mentor
+                approval will appear here.
+
+            </p>
+
+        </div>
+
+
+        <div class="review-area">
+
+
+            <div class="empty-symbol">
+
+                <div class="empty-core"></div>
+
+            </div>
+
+
+            <h3>
+
+                No answers to review yet
+
+            </h3>
+
+
+            <p>
+
+                When students submit answers to doubts,
+                responses requiring mentor approval will
+                automatically appear in this workspace.
+
+                No sample data is displayed because
+                this is the live application.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- POINT SYSTEM -->
+
+        <div class="point-system">
+
+            <h3>
+
+                Skill point system
+
+            </h3>
+
+            <p>
+
+                Only mentors can officially award skill points.
+
+            </p>
+
+
+            <div class="point-row">
+
+                <span>
+
+                    Useful answer
+
+                </span>
+
+                <span class="point">
+
+                    +5
+
+                </span>
+
+            </div>
+
+
+            <div class="point-row">
+
+                <span>
+
+                    Strong solution
+
+                </span>
+
+                <span class="point">
+
+                    +10
+
+                </span>
+
+            </div>
+
+
+            <div class="point-row">
+
+                <span>
+
+                    Exceptional perspective
+
+                </span>
+
+                <span class="point">
+
+                    +15
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MODERATION
+    ================================================= -->
+
+    <section
+        class="view"
+        id="moderation">
+
+
+        <div class="moderation-area">
+
+
+            <div class="moderation-intro">
+
+                <h2>
+
+                    Community moderation
+
+                </h2>
+
+                <p>
+
+                    Keep Perspectra respectful,
+                    constructive and safe.
+
+                </p>
+
+            </div>
+
+
+            <div class="moderation-empty">
+
+                <div class="empty-symbol">
+
+                    <div class="empty-core"></div>
+
+                </div>
+
+
+                <h3>
+
+                    No flagged content
+
+                </h3>
+
+
+                <p>
+
+                    Reported questions, answers or comments
+                    will appear here for mentor review.
+
+                </p>
+
+            </div>
+
+
+            <div class="safety-note">
+
+                <strong>
+
+                    Community safety
+
+                </strong>
+
+
+                <p>
+
+                    Content containing harmful or hateful
+                    language should be detected before
+                    publication. Reported content receives
+                    an additional mentor review.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         GUIDELINES
+    ================================================= -->
+
+    <section
+        class="view"
+        id="guidelines">
+
+
+        <div class="section-heading">
+
+            <h2>
+
+                Mentor guidelines
+
+            </h2>
+
+            <p>
+
+                Principles for fair and meaningful review.
+
+            </p>
+
+        </div>
+
+
+        <div class="guidelines">
+
+
+            <div class="guideline">
+
+                <span class="guideline-number">
+
+                    01
+
+                </span>
+
+
+                <div class="guideline-content">
+
+                    <strong>
+
+                        Review objectively
+
+                    </strong>
+
+                    <p>
+
+                        Evaluate the quality of the answer,
+                        not the identity or popularity of
+                        the student.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="guideline">
+
+                <span class="guideline-number">
+
+                    02
+
+                </span>
+
+
+                <div class="guideline-content">
+
+                    <strong>
+
+                        Reward useful thinking
+
+                    </strong>
+
+                    <p>
+
+                        Points should reflect how effectively
+                        a response solves or improves the
+                        student's problem.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="guideline">
+
+                <span class="guideline-number">
+
+                    03
+
+                </span>
+
+
+                <div class="guideline-content">
+
+                    <strong>
+
+                        Encourage practical solutions
+
+                    </strong>
+
+                    <p>
+
+                        Clear and understandable approaches
+                        should be valued over unnecessary
+                        complexity.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="guideline">
+
+                <span class="guideline-number">
+
+                    04
+
+                </span>
+
+
+                <div class="guideline-content">
+
+                    <strong>
+
+                        Protect the community
+
+                    </strong>
+
+                    <p>
+
+                        Review reported content and take
+                        appropriate moderation action when
+                        community rules are violated.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="guideline">
+
+                <span class="guideline-number">
+
+                    05
+
+                </span>
+
+
+                <div class="guideline-content">
+
+                    <strong>
+
+                        Keep points meaningful
+
+                    </strong>
+
+                    <p>
+
+                        Students cannot award themselves
+                        unlimited points. Mentor approval
+                        remains the final authority.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    PERSPECTRA • One problem. Multiple perspectives.
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   THEME SWITCH
+========================================================= */
+
+const themeBtn =
+    document.getElementById("themeBtn");
+
+
+function updateThemeIcon(){
+
+    themeBtn.textContent =
+        document.body.classList.contains("light")
+            ? "☀"
+            : "☾";
+
+}
+
+
+const savedTheme =
+    localStorage.getItem("perspectra-theme");
+
+
+if(savedTheme === "light"){
+
+    document.body.classList.add("light");
+
+}
+
+
+updateThemeIcon();
+
+
+themeBtn.addEventListener("click",()=>{
+
+    document.body.classList.toggle("light");
+
+
+    localStorage.setItem(
+
+        "perspectra-theme",
+
+        document.body.classList.contains("light")
+            ? "light"
+            : "dark"
+
+    );
+
+
+    updateThemeIcon();
+
+});
+
+
+
+/* =========================================================
+   TAB SWITCHING
+========================================================= */
+
+const tabs =
+    document.querySelectorAll(".tab");
+
+
+const views =
+    document.querySelectorAll(".view");
+
+
+tabs.forEach(tab => {
+
+    tab.addEventListener("click",()=>{
+
+
+        tabs.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+        views.forEach(view => {
+
+            view.classList.remove("active");
+
+        });
+
+
+        tab.classList.add("active");
+
+
+        document
+            .getElementById(tab.dataset.view)
+            .classList.add("active");
+
+    });
+
+});
+
+
+
+/* =========================================================
+   BACKEND CONNECTION
+=========================================================
+
+   Later connect these values to your backend:
+
+   GET /api/mentor/dashboard
+
+   Example response:
+
+   {
+       pendingReviews: 0,
+       reviewed: 0,
+       pointsAwarded: 0,
+       flagged: 0
+   }
+
+   Do NOT put sample/fake values here.
+   The HTML starts at 0 until the database provides
+   the real mentor information.
+
+========================================================= */
+
+</script>
+
+
+
+<script id="perspectra-global-theme">
+(function(){
+  const KEY='perspectra-theme';
+  const oldKey='perspectraTheme';
+  const saved=localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark';
+  function apply(theme){
+    const t=theme==='light'?'light':'dark';
+    localStorage.setItem(KEY,t);
+    localStorage.setItem(oldKey,t);
+    document.documentElement.setAttribute('data-theme',t);
+    document.body.classList.toggle('light',t==='light');
+    const b=document.getElementById('globalThemeBtn');
+    if(b)b.textContent=t==='light'?'🌙':'☀️';
+  }
+  apply(saved);
+  const b=document.getElementById('globalThemeBtn');
+  if(b)b.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+})();
+</script>
+
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script type="module" src="firebase-mprofile.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body>
+</html>

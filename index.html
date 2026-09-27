@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="refresh" content="0; url=login.html"><title>PERSPECTRA</title></head><body><script>window.location.replace('login.html');</script><p>Opening PERSPECTRA Login…</p>
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+</body></html>

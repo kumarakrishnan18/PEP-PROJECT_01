@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PERSPECTRA | Admin Profile</title>
+<style>
+:root{--bg:#080b1c;--surface:#121630;--text:#f5f4ff;--muted:#a9aac2;--border:rgba(255,255,255,.1);--primary:#7667ff}
+:root[data-theme="light"]{--bg:#dce2ee;--surface:#f4f6fb;--text:#25283a;--muted:#646a7c;--border:rgba(40,50,80,.12);--primary:#6657d9}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}.global-dashboard{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:24px;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border)}.gd-brand{font-weight:800;color:var(--text);text-decoration:none}.gd-nav{display:flex;gap:8px;flex:1;flex-wrap:wrap}.gd-nav a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:9px}.gd-nav a:hover,.gd-nav a.active{background:rgba(118,103,255,.14);color:var(--text)}.gd-actions{display:flex;gap:10px}.gd-actions button,.gd-login{border:1px solid var(--border);background:transparent;color:var(--text);padding:8px 11px;border-radius:9px;text-decoration:none}.wrap{max-width:900px;margin:60px auto;padding:0 24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px}.eyebrow{color:var(--primary);font-size:12px;font-weight:800;letter-spacing:.12em}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.stat{padding:18px;border:1px solid var(--border);border-radius:14px}.num{font-size:28px;font-weight:800}.muted{color:var(--muted)}@media(max-width:700px){.stats{grid-template-columns:1fr}.global-dashboard{flex-wrap:wrap}}
+</style></head>
+<body>
+<header class="global-dashboard"><a class="gd-brand" href="admin.html">PERSPECTRA</a><nav class="gd-nav">
+<a href="discussion.html">Discussions &amp; Feed</a><a href="leaderboard.html">Leaderboard &amp; Skills</a><a href="admin.html">Admin</a><a href="aprofile.html" class="active">Profile</a>
+</nav><div class="gd-actions"><button id="themeBtn">☀️</button><a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn')">Logout</a></div></header>
+<main class="wrap"><div class="card"><div class="eyebrow">PERSPECTRA • ADMIN</div><h1>Admin Profile</h1><p class="muted">Platform management and community safety workspace.</p>
+<div class="stats"><div class="stat"><div class="num">—</div><div class="muted">Managed users</div></div><div class="stat"><div class="num">—</div><div class="muted">Reports reviewed</div></div><div class="stat"><div class="num">—</div><div class="muted">Moderation actions</div></div></div></div></main>
+<script>
+(function(){
+const KEY='perspectra-theme',old='perspectraTheme';function apply(t){t=t==='light'?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.body.classList.toggle('light',t);localStorage.setItem(KEY,t);localStorage.setItem(old,t);document.getElementById('themeBtn').textContent=t==='light'?'🌙':'☀️'}apply(localStorage.getItem(KEY)||localStorage.getItem(old)||'dark');document.getElementById('themeBtn').onclick=()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')})();
+</script><script type="module" src="firebase-session.js"></script><script type="module" src="firebase-avatar.js"></script><script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body></html>

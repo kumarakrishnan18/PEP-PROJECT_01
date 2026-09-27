@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERSPECTRA · Discussions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+:root{--bg:#080b1c;--bg2:#11152d;--card:rgba(18,22,48,.78);--text:#f5f4ff;--muted:#a9aac2;--border:rgba(255,255,255,.10);--primary:#7667ff;--soft:rgba(118,103,255,.15);--success:#4fd695;--warn:#ffb454;--danger:#ff7777}
+:root[data-theme="light"]{--bg:#dce2ee;--bg2:#e9ecf3;--card:rgba(244,246,251,.88);--text:#25283a;--muted:#646a7c;--border:rgba(40,50,80,.12);--primary:#6657d9;--soft:rgba(102,87,217,.12);--success:#1f9d6e;--warn:#c47a1a;--danger:#c43d4b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(1000px 500px at 15% -10%,var(--soft),transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;transition:.25s}a{color:inherit}
+.global-dashboard{position:sticky;top:0;z-index:100;background:rgba(8,11,28,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(14px);display:flex;align-items:center;gap:28px;padding:14px 4%}
+:root[data-theme="light"] .global-dashboard{background:rgba(255,255,255,.94)}
+.gd-brand{font:700 20px Sora,sans-serif;text-decoration:none;white-space:nowrap}.gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}.gd-nav a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600}.gd-nav a:hover,.gd-nav a.active{color:var(--text);background:var(--soft)}.gd-actions{display:flex;gap:8px;align-items:center}.gd-actions button,.gd-login{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter;text-decoration:none}.gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:0!important}
+.container{max-width:1120px;margin:0 auto;padding:42px 24px 70px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--primary);font-weight:700;margin-bottom:10px}h1,h2,h3{font-family:Sora,sans-serif}h1{font-size:34px;margin:0 0 10px}p{color:var(--muted);line-height:1.65}.intro{max-width:760px;margin-bottom:24px}.role-note{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin:22px 0 28px}.role-note strong{color:var(--text)}.role-badge{padding:7px 10px;border-radius:999px;background:var(--soft);color:var(--primary);font-size:12px;font-weight:700;white-space:nowrap}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.count{font-size:13px;color:var(--muted)}.refresh{border:1px solid var(--border);background:var(--bg2);color:var(--text);padding:9px 13px;border-radius:10px;cursor:pointer;font-weight:600}.refresh:hover{border-color:var(--primary)}
+.feed{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}.question-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;min-width:0}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.tags{display:flex;gap:7px;flex-wrap:wrap}.tag,.status{font-size:11px;font-weight:700;padding:6px 9px;border-radius:999px}.tag{background:var(--soft);color:var(--primary)}.status{background:rgba(79,214,149,.12);color:var(--success)}.question-card h2{font-size:19px;margin:15px 0 8px}.description{margin:0 0 15px}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:13px;font-size:12px;color:var(--muted)}
+.answer-form{display:grid;gap:10px;margin-top:18px;padding-top:15px;border-top:1px solid var(--border)}.answer-form textarea{min-height:100px;resize:none;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--bg2);color:var(--text);font:inherit}.answer-form button{width:max-content;border:0;border-radius:9px;padding:9px 13px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}.answer-form span{color:var(--success);font-size:12px}
+.discussion-answer{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.discussion-answer strong{font-size:13px}.discussion-answer p{margin:7px 0 8px}.verification-badge{display:inline-block;font-size:11px;font-weight:700;padding:5px 8px;border-radius:7px}.verification-badge.correct{background:rgba(79,214,149,.12);color:var(--success)}.verification-badge.pending{background:rgba(169,170,194,.12);color:var(--muted)}.verification-badge.incorrect{background:rgba(255,119,119,.12);color:var(--danger)}
+.admin-actions{display:flex;gap:8px;margin-top:16px;padding-top:15px;border-top:1px solid var(--border)}.danger{border:1px solid rgba(255,100,100,.25);background:rgba(255,100,100,.08);color:#ff8d8d;border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:600}.review{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:600}
+.empty{padding:45px 20px;text-align:center;border:1px dashed var(--border);border-radius:18px;background:rgba(255,255,255,.02)}.empty h3{margin:0 0 8px}.empty p{margin:0}.error{color:var(--warn)!important}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px;flex-wrap:wrap}.gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.gd-brand{font-size:17px}.container{padding:30px 16px 55px}.role-note{align-items:flex-start;flex-direction:column}.feed{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.feed{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="global-dashboard">
+  <a class="gd-brand" id="brandLink" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav" id="mainNav">
+    <a href="discussion.html?role=mentor" class="active">Discussions &amp; Feed</a>
+    <a href="mentor.html" id="mentorLink">Mentor Hub</a>
+    <a href="leaderboard.html">Leaderboard &amp; Skills</a>
+    <a href="mprofile.html" id="profileLink">Profile</a>
+    <a href="admin.html" id="adminLink">Admin</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="themeButton" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn');return true">Logout</a>
+  </div>
+</header>
+
+<main class="container">
+  <div class="eyebrow">PERSPECTRA COMMUNITY</div>
+  <h1 id="pageTitle">Discussions &amp; Feed</h1>
+  <p class="intro" id="pageIntro">Browse academic discussions without leaving your dashboard context.</p>
+
+  <section class="role-note">
+    <div><strong id="roleHeading">Discussion View</strong><p id="roleDescription" style="margin:4px 0 0">Loading your role-specific view…</p></div>
+    <span class="role-badge" id="roleBadge">USER</span>
+  </section>
+
+  <div class="toolbar"><span class="count" id="resultCount">Loading discussions…</span><button class="refresh" id="refreshButton" type="button">↻ Refresh</button></div>
+  <section class="feed" id="questionFeed"></section>
+  <section class="empty" id="emptyState" hidden><h3>No discussions available</h3><p id="emptyMessage">No discussion data was returned by the backend.</p></section>
+</main>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script type="module" src="firebase-discussion.js"></script>
+<script>
+const urlRole = new URLSearchParams(window.location.search).get('role');
+
+(function(){
+  const role=(localStorage.getItem('perspectraRole') || 'student').toLowerCase();
+  if(!['student','mentor','admin'].includes(role)){location.href='login.html';return;}
+
+  const $=id=>document.getElementById(id);
+  if(role==='student'){
+    $('brandLink').href='home.html'; $('mentorLink').style.display='none'; $('adminLink').style.display='none'; $('profileLink').href='sprofile.html';
+    $('roleBadge').textContent='STUDENT'; $('roleHeading').textContent='Student Discussion View';
+    $('roleDescription').textContent='Your normal student discussion area remains on the Student Dashboard. This page is used by mentors and administrators to keep their discussion view separate.';
+    $('pageIntro').textContent='Academic discussions shared by the PERSPECTRA community.';
+  }else if(role==='mentor'){
+    $('brandLink').href='mentor.html'; $('adminLink').style.display='none'; $('profileLink').href='mprofile.html';
+    $('roleBadge').textContent='MENTOR'; $('roleHeading').textContent='Mentor Discussion View';
+    $('roleDescription').textContent='View student discussions and monitor unresolved questions without switching to the student dashboard.';
+    $('pageIntro').textContent='Review classroom discussions from the Mentor workspace. Student-only actions are not shown here.';
+  }else{
+    $('brandLink').href='admin.html'; $('mentorLink').style.display='none'; $('profileLink').href='aprofile.html';
+    $('roleBadge').textContent='ADMIN'; $('roleHeading').textContent='Admin Discussion Moderation';
+    $('roleDescription').textContent='Review community discussions from the Admin workspace. Moderation actions are available only to administrators.';
+    $('pageIntro').textContent='Monitor discussion content and keep the community safe without replacing the Admin dashboard.';
+  }
+
+  const saved=localStorage.getItem('perspectra-theme')||'dark';
+  function applyTheme(theme){document.documentElement.setAttribute('data-theme',theme);document.body.classList.toggle('light',theme==='light');$('themeButton').textContent=theme==='light'?'🌙':'☀️';localStorage.setItem('perspectra-theme',theme)}
+  applyTheme(saved==='light'?'light':'dark');
+  $('themeButton').addEventListener('click',()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+
+  const API='/api/questions';
+  function esc(v){const d=document.createElement('div');d.textContent=v==null?'':String(v);return d.innerHTML}
+  function idOf(q){return q.questionId ?? q.id ?? q._id ?? ''}
+  function render(data){
+    const feed=$('questionFeed'); feed.innerHTML=''; $('emptyState').hidden=true;
+    if(!Array.isArray(data)||!data.length){$('emptyState').hidden=false;$('resultCount').textContent='No discussions yet';return}
+    $('resultCount').textContent=`${data.length} ${data.length===1?'discussion':'discussions'}`;
+    data.forEach(q=>{
+      const article=document.createElement('article'); article.className='question-card';
+      const tags=Array.isArray(q.tags)?q.tags:[];
+      article.innerHTML=`<div class="top"><div class="tags"><span class="tag">${esc(q.subject||'General')}</span>${tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><span class="status">${esc(q.status||'Open')}</span></div><h2>${esc(q.title||'Untitled discussion')}</h2><p class="description">${esc(q.description||'')}</p><div class="footer"><span>${esc(q.author||'Student')}</span><span>💬 ${Number(q.answerCount||0)} answers</span></div>`;
+      if(role==='admin'){
+        const actions=document.createElement('div'); actions.className='admin-actions';
+        const review=document.createElement('button'); review.className='review'; review.textContent='Review content'; review.onclick=()=>alert('Review this discussion using the Admin moderation workflow.');
+        const remove=document.createElement('button'); remove.className='danger'; remove.textContent='Remove content'; remove.onclick=()=>removeContent(idOf(q));
+        actions.append(review,remove); article.appendChild(actions);
+      }
+      feed.appendChild(article);
+    });
+  }
+  async function load(){
+    $('resultCount').textContent='Loading discussions…';
+    try{
+      const res=await fetch(API,{method:'GET',credentials:'include',headers:{'Content-Type':'application/json'}});
+      if(!res.ok) throw new Error('Unable to load discussions');
+      const data=await res.json(); render(data);
+    }catch(err){console.error(err);$('questionFeed').innerHTML='';$('emptyState').hidden=false;$('emptyMessage').textContent='The discussion service is currently unavailable. No sample or fake discussions are shown.';$('emptyMessage').classList.add('error');$('resultCount').textContent='Unable to load discussions';}
+  }
+  async function removeContent(id){
+    if(!id){alert('This discussion does not have a valid backend ID yet.');return}
+    if(!confirm('Remove this discussion from the community?'))return;
+    try{
+      const res=await fetch('/api/admin/content/'+encodeURIComponent(id),{method:'DELETE',credentials:'include'});
+      if(!res.ok) throw new Error('Removal failed');
+      await load();
+    }catch(err){console.error(err);alert('The backend did not accept the moderation request.');}
+  }
+  void 0;
+})();
+</script>
+</body>
+</html>

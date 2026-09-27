@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perspectra | Academics</title>
+  <style>
+    :root { --bg:#050816; --bg2:#0b1230; --card:rgba(255,255,255,.045); --border:rgba(148,163,255,.18); --text:#f8fafc; --muted:#9ca9c7; --primary:#6366f1; --cyan:#22d3ee; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif; color:var(--text); background:radial-gradient(circle at 10% 15%,rgba(99,102,241,.3),transparent 27%),linear-gradient(135deg,var(--bg),var(--bg2)); }
+    main { width:88%; max-width:900px; margin:48px auto 80px; }
+    a { color:var(--cyan); }
+    .back { display:inline-block; margin-bottom:28px; text-decoration:none; }
+    .eyebrow { color:var(--cyan); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+    h1 { margin:8px 0 10px; font-size:35px; }
+    .intro { color:var(--muted); margin-bottom:30px; }
+    .feed-card { border:1px solid var(--border); border-radius:8px; background:var(--card); padding:12px 13px; }
+    .feed-header { display:flex; justify-content:space-between; gap:16px; align-items:center; margin-bottom:12px; }
+    .feed-header h2 { margin:0; font-size:20px; }
+    #categoryCount { color:var(--muted); font-size:12px; }
+    .question-card { padding:18px 0; border-bottom:1px solid var(--border); }
+    .question-card:last-child { border-bottom:0; }
+    .tag { color:var(--cyan); font-size:11px; text-transform:uppercase; }
+    .question-card h2 { margin:8px 0; font-size:18px; }
+    .question-card p { color:var(--muted); line-height:1.6; margin:0 0 12px; }
+    .question-card footer { color:var(--muted); font-size:12px; }
+    #categoryEmpty { color:var(--muted); padding:24px 0; }
+  </style>
+</head>
+<body data-category="academics">
+  <main>
+    <a class="back" href="home.html">Back to discussions</a>
+    <div class="eyebrow">Category</div>
+    <h1>Academics</h1>
+    <p class="intro">Explore academic doubts from the Perspectra community.</p>
+    <section class="feed-card">
+      <div class="feed-header"><h2>Academic discussions</h2><span id="categoryCount">0 discussions</span></div>
+      <div id="categoryEmpty">No discussions in this category yet.</div>
+      <div id="categoryFeed"></div>
+    </section>
+  </main>
+  <script type="module" src="category-page.js"></script>
+</body>
+</html>

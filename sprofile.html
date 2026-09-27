@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Perspectra | Student Profile</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           DARK THEME
+        ===================================================== */
+
+        :root {
+
+            --bg: #050816;
+            --bg2: #0b1230;
+
+            --card: rgba(18, 25, 55, 0.72);
+
+            --primary: #6366f1;
+            --purple: #8b5cf6;
+            --cyan: #22d3ee;
+
+            --text: #f8fafc;
+            --muted: #9ca9c7;
+
+            --input: rgba(255, 255, 255, 0.045);
+
+            --border: rgba(148, 163, 255, 0.18);
+
+            --soft-primary: rgba(99, 102, 241, 0.12);
+
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* =====================================================
+           LIGHT THEME
+        ===================================================== */
+
+        body.light {
+
+            --bg: #c5cee0;
+            --bg2: #dfe4ef;
+
+            --card: rgba(238, 242, 249, 0.82);
+
+            --primary: #5146c9;
+            --purple: #7545b8;
+            --cyan: #087f9b;
+
+            --text: #172033;
+            --muted: #5f6b83;
+
+            --input: rgba(255, 255, 255, 0.38);
+
+            --border: rgba(71, 85, 120, 0.20);
+
+            --soft-primary: rgba(81, 70, 201, 0.12);
+
+            --shadow: rgba(47, 55, 90, 0.22);
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(99, 102, 241, 0.30),
+                    transparent 27%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(34, 211, 238, 0.16),
+                    transparent 27%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    var(--bg),
+                    var(--bg2)
+                );
+
+            transition:
+                background 0.5s ease,
+                color 0.5s ease;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND
+        ===================================================== */
+
+        .background {
+
+            position: fixed;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .orb {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(100px);
+
+            opacity: 0.25;
+        }
+
+
+        .orb-one {
+
+            width: 350px;
+
+            height: 350px;
+
+            background: #6366f1;
+
+            top: -150px;
+
+            left: -120px;
+        }
+
+
+        .orb-two {
+
+            width: 330px;
+
+            height: 330px;
+
+            background: #22d3ee;
+
+            right: -150px;
+
+            bottom: -120px;
+        }
+
+
+        /* =====================================================
+           STARS
+        ===================================================== */
+
+        .stars {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+        .star {
+
+            position: absolute;
+
+            width: 3px;
+
+            height: 3px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            opacity: 0.55;
+
+            animation:
+                twinkle 3s ease-in-out infinite;
+        }
+
+
+        .star:nth-child(1) {
+            top: 12%;
+            left: 8%;
+        }
+
+
+        .star:nth-child(2) {
+            top: 23%;
+            left: 75%;
+            animation-delay: 0.8s;
+        }
+
+
+        .star:nth-child(3) {
+            top: 65%;
+            left: 14%;
+            animation-delay: 1.4s;
+        }
+
+
+        .star:nth-child(4) {
+            top: 78%;
+            left: 84%;
+            animation-delay: 2s;
+        }
+
+
+        .star:nth-child(5) {
+            top: 40%;
+            left: 92%;
+            animation-delay: 0.4s;
+        }
+
+
+        .star:nth-child(6) {
+            top: 87%;
+            left: 48%;
+            animation-delay: 2.3s;
+        }
+
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+
+                opacity: 0.2;
+
+                transform: scale(0.8);
+            }
+
+            50% {
+
+                opacity: 0.9;
+
+                transform: scale(1.4);
+            }
+        }
+
+
+        /* =====================================================
+           LIGHT MODE - HIDE STARS
+        ===================================================== */
+
+        body.light .stars {
+
+            opacity: 0;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            height: 76px;
+
+            width: 100%;
+
+            padding: 0 5%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+
+            background:
+                rgba(5, 8, 22, 0.72);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid var(--border);
+
+            transition:
+                background 0.5s ease,
+                border 0.5s ease;
+        }
+
+
+        body.light header {
+
+            background:
+                rgba(238, 242, 249, 0.72);
+        }
+
+
+        /* =====================================================
+           PERSPECTRA TEXT
+           
+           SYMBOL REMOVED
+        ===================================================== */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .logo-text {
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+
+            color: var(--text);
+        }
+
+
+        /* =====================================================
+           HEADER ACTIONS
+        ===================================================== */
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .home-button,
+        .theme-button {
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--input);
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+
+        .home-button {
+
+            padding:
+                10px 17px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .theme-button {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            font-size: 18px;
+        }
+
+
+        .home-button:hover,
+        .theme-button:hover {
+
+            background:
+                var(--soft-primary);
+
+            border-color:
+                rgba(99, 102, 241, 0.45);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+
+            width: 88%;
+
+            max-width: 1100px;
+
+            margin:
+                48px auto 80px;
+
+            position: relative;
+
+            z-index: 5;
+        }
+
+
+        .page-label {
+
+            color: var(--cyan);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-title {
+
+            font-size: 35px;
+
+            font-weight: 700;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =====================================================
+           PROFILE INTRO
+        ===================================================== */
+
+        .profile-summary {
+
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: var(--card);
+
+            padding: 30px;
+        }
+
+
+        .mentor-award {
+
+            display: none;
+
+            margin-top: 24px;
+
+            padding: 16px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: var(--card);
+        }
+
+
+        .mentor-award.visible {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .mentor-award input,
+        .mentor-award button {
+
+            padding: 10px 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: var(--input);
+
+            color: var(--text);
+
+            font: inherit;
+        }
+
+
+        .mentor-award button {
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+
+        .profile-intro {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            padding-bottom: 32px;
+
+        }
+
+
+        /* =====================================================
+           SIMPLE PROFILE AVATAR
+           
+           NO PERSPECTRA SYMBOL
+        ===================================================== */
+
+        .profile-avatar {
+
+            width: 100px;
+
+            height: 100px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--purple)
+                );
+
+            color: white;
+
+            font-size: 34px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 0 30px
+                rgba(99, 102, 241, 0.25);
+        }
+
+
+        .profile-details {
+
+            flex: 1;
+        }
+
+
+        .profile-details h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .email {
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .role {
+
+            display: inline-block;
+
+            padding:
+                6px 12px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(99, 102, 241, 0.10);
+
+            border:
+                1px solid
+                rgba(99, 102, 241, 0.25);
+
+            color:
+                #aeb5ff;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+        }
+
+
+        body.light .role {
+
+            color:
+                #5146c9;
+
+            background:
+                rgba(81, 70, 201, 0.08);
+        }
+
+
+        /* =====================================================
+           EDIT BUTTON
+        ===================================================== */
+
+        .edit-button {
+
+            padding:
+                11px 20px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(99, 102, 241, 0.45);
+
+            background: transparent;
+
+            color:
+                #aeb5ff;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .edit-button:hover {
+
+            background:
+                rgba(99, 102, 241, 0.12);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        body.light .edit-button {
+
+            color:
+                #5146c9;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            padding:
+                30px 0;
+
+        }
+
+
+        .stat {
+
+            text-align: center;
+
+            border-right:
+                1px solid var(--border);
+        }
+
+
+        .stat:last-child {
+
+            border-right: none;
+        }
+
+
+        .stat-number {
+
+            font-size: 29px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--purple),
+                    var(--cyan)
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            background-clip: text;
+        }
+
+
+        .stat-label {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 65px;
+
+            padding-top: 38px;
+        }
+
+
+        .section {
+
+            margin-bottom: 42px;
+        }
+
+
+        .section-title {
+
+            font-size: 20px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .section-description {
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            margin-bottom: 22px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           CONTRIBUTIONS
+        ===================================================== */
+
+        .empty-state {
+
+            padding:
+                24px 0;
+
+            color:
+                var(--muted);
+
+            font-size: 13px;
+
+            border-top:
+                1px solid
+                rgba(148, 163, 255, 0.10);
+
+            border-bottom:
+                1px solid
+                rgba(148, 163, 255, 0.10);
+        }
+
+        .profile-display-box {
+
+            min-height: 58px;
+            padding: 12px 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--input);
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+
+        textarea {
+
+            resize: none;
+        }
+
+
+        textarea.profile-display-box {
+
+            display: block;
+
+            width: 100%;
+
+            min-height: 110px;
+
+            font: inherit;
+
+            outline: none;
+        }
+
+
+        textarea.profile-display-box:focus {
+
+            border-color: var(--primary);
+
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        #contributions a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        #contributions a:hover {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        .about {
+
+            padding:
+                18px 0;
+
+            color:
+                var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            border-top:
+                1px solid
+                rgba(148, 163, 255, 0.10);
+
+            border-bottom:
+                1px solid
+                rgba(148, 163, 255, 0.10);
+        }
+
+        .about.profile-display-box {
+            padding: 12px 13px;
+            border: 1px solid var(--border);
+        }
+
+
+        /* =====================================================
+           SUBJECT SKILLS
+        ===================================================== */
+
+        .subject {
+
+            margin-bottom: 21px;
+        }
+
+
+        .subject-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subject-name {
+
+            color:
+                #cbd5e8;
+
+            font-size: 13px;
+        }
+
+
+        body.light .subject-name {
+
+            color:
+                #3e4960;
+        }
+
+
+        .subject-points {
+
+            color:
+                var(--cyan);
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .progress {
+
+            width: 100%;
+
+            height: 5px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            overflow: hidden;
+        }
+
+
+        body.light .progress {
+
+            background:
+                rgba(40, 50, 80, 0.10);
+        }
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--purple),
+                    var(--cyan)
+                );
+
+            transition:
+                width 0.7s ease;
+        }
+
+
+        /* =====================================================
+           ACHIEVEMENTS
+        ===================================================== */
+
+        .achievement-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+
+        .achievement {
+
+            padding:
+                8px 13px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(99, 102, 241, 0.08);
+
+            border:
+                1px solid
+                rgba(99, 102, 241, 0.20);
+
+            color:
+                #aeb7d0;
+
+            font-size: 11px;
+        }
+
+
+        body.light .achievement {
+
+            background:
+                rgba(255, 255, 255, 0.40);
+
+            border-color:
+                rgba(71, 85, 120, 0.16);
+
+            color:
+                #68738a;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            main {
+
+                width: 90%;
+            }
+
+
+            .content {
+
+                grid-template-columns: 1fr;
+
+                gap: 10px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 25px 0;
+            }
+
+
+            .stat:nth-child(2) {
+
+                border-right: none;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            header {
+
+                padding:
+                    0 4%;
+            }
+
+
+            .logo-text {
+
+                font-size: 25px;
+            }
+
+
+            .home-button {
+
+                padding:
+                    9px 12px;
+            }
+
+
+            .page-title {
+
+                font-size: 29px;
+            }
+
+
+            .profile-intro {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .profile-avatar {
+
+                width: 85px;
+
+                height: 85px;
+
+                font-size: 28px;
+            }
+
+
+            .edit-button {
+
+                width: 100%;
+            }
+        }
+
+
+        @media (max-width: 400px) {
+
+            .header-actions {
+
+                gap: 7px;
+            }
+
+
+            .logo-text {
+
+                font-size: 22px;
+            }
+
+
+            .stats {
+
+                gap: 20px 0;
+            }
+        }
+
+    </style>
+
+<style>
+
+/* PERSPECTRA GLOBAL DASHBOARD */
+.global-dashboard{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:28px;padding:14px 4%;background:rgba(10,14,39,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px);font-family:Inter,Arial,sans-serif}
+body.light .global-dashboard{background:rgba(255,255,255,.96);border-bottom-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-brand{font-weight:800;font-size:20px;letter-spacing:.4px;color:#f3f1ff;text-decoration:none;white-space:nowrap}
+body.light .global-dashboard .gd-brand{color:#171b33}
+.global-dashboard .gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+.global-dashboard .gd-nav a{color:rgba(243,241,255,.72);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s}
+body.light .global-dashboard .gd-nav a{color:rgba(23,27,51,.70)}
+.global-dashboard .gd-nav a:hover,.global-dashboard .gd-nav a.active{color:#fff;background:rgba(109,93,251,.18)}
+body.light .global-dashboard .gd-nav a:hover,body.light .global-dashboard .gd-nav a.active{color:#171b33;background:rgba(109,93,251,.12)}
+.global-dashboard .gd-actions{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.global-dashboard button,.global-dashboard .gd-login{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#f3f1ff;border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+body.light .global-dashboard button,body.light .global-dashboard .gd-login{background:rgba(20,24,60,.05);color:#171b33;border-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:none}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px}.global-dashboard .gd-brand{font-size:17px}.global-dashboard .gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.global-dashboard{flex-wrap:wrap}}
+
+</style>
+<style>body > header:not(.global-dashboard), body > nav:not(.global-dashboard){display:none !important;}</style>
+</head>
+
+
+<body>
+<header class="global-dashboard" id="globalDashboard">
+  <a class="gd-brand" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav">
+    <a href="home.html">Discussions & Feed</a>
+    <a href="ask-doubt.html">Ask a Doubt</a>
+    <a href="leaderboard.html">Leaderboard & Skills</a>
+    <a href="sprofile.html" class="active">Profile</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="globalThemeBtn" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn'); return true;">Logout</a>
+  </div>
+</header>
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="background">
+
+        <div class="orb orb-one"></div>
+
+        <div class="orb orb-two"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STARS
+    ====================================================== -->
+
+    <div class="stars">
+
+        <span class="star"></span>
+
+        <span class="star"></span>
+
+        <span class="star"></span>
+
+        <span class="star"></span>
+
+        <span class="star"></span>
+
+        <span class="star"></span>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+
+        <!-- ONLY TEXT — SYMBOL REMOVED -->
+
+        <div class="logo">
+
+            <span class="logo-text">
+
+                Perspectra
+
+            </span>
+
+        </div>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+
+            <button
+                class="home-button"
+                onclick="goHome()">
+
+                ← Home
+
+            </button>
+
+
+            <button
+                class="theme-button"
+                id="themeButton"
+                onclick="toggleTheme()">
+
+                ☾
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main>
+
+
+        <div class="page-label">
+
+            Student Profile
+
+        </div>
+
+
+        <h1 class="page-title">
+
+            My Profile
+
+        </h1>
+
+
+        <!-- =================================================
+             PROFILE INTRO
+        ================================================== -->
+
+        <section class="profile-summary">
+
+        <div class="profile-intro">
+
+
+            <!-- SIMPLE INITIAL AVATAR -->
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
+
+                S
+
+            </div>
+
+
+            <!-- PROFILE DETAILS -->
+
+            <div class="profile-details">
+
+
+                <h2 id="studentName">
+
+                    Loading...
+
+                </h2>
+
+
+                <p
+                    class="email"
+                    id="studentEmail">
+
+                    Loading...
+
+                </p>
+
+
+                <span
+                    class="role"
+                    id="studentRole">
+
+                    Student
+
+                </span>
+
+            </div>
+
+
+            <button
+                class="edit-button"
+                onclick="editProfile()">
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats">
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="questionsCount">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-label">
+
+                    Questions
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="answersCount">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-label">
+
+                    Answers
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="votesCount">
+
+                    0
+
+                </div>
+
+
+                <div class="stat-label">
+
+                    Votes
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="rank">
+
+                    —
+
+                </div>
+
+
+                <div class="stat-label">
+
+                    Leaderboard Rank
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        </section>
+
+
+        <div class="mentor-award" id="mentorAwardPanel">
+
+            <strong>Award Points</strong>
+            <input id="mentorPoints" type="number" min="1" step="1" placeholder="Points">
+            <button id="awardPointsButton" type="button">Award</button>
+            <span id="mentorAwardStatus" role="status"></span>
+
+        </div>
+
+
+        <!-- =================================================
+             LOWER CONTENT
+        ================================================== -->
+
+        <div class="content">
+
+
+            <!-- =============================================
+                 LEFT SIDE
+            ============================================== -->
+
+            <div>
+
+
+                <!-- CONTRIBUTIONS -->
+
+                <section class="section" id="contributionsSection">
+
+
+                    <h2 class="section-title">
+
+                        Contributions
+
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        Your questions and answers across
+                        the Perspectra community.
+
+                    </p>
+
+
+                    <textarea
+                        id="contributions"
+                        class="empty-state profile-display-box"
+                        maxlength="300"
+                        placeholder="Add your contributions..."
+                        aria-label="Contributions"></textarea>
+                    <small class="profile-counter"><span id="contributionsCount">0</span>/300</small>
+
+                </section>
+
+
+                <!-- ABOUT -->
+
+                <section class="section" id="aboutSection">
+
+
+                    <h2 class="section-title">
+
+                        About
+
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        A little about your learning journey.
+
+                    </p>
+
+
+                    <textarea
+                        class="about profile-display-box"
+                        id="about"
+                        maxlength="500"
+                        placeholder="Tell us about your learning journey"
+                        aria-label="About"></textarea>
+                    <small class="profile-counter"><span id="aboutCount">0</span>/500</small>
+
+                </section>
+
+            </div>
+
+
+            <!-- =============================================
+                 RIGHT SIDE
+            ============================================== -->
+
+            <div>
+
+
+                <!-- SUBJECT SKILLS -->
+
+                <section class="section" id="skillsSection">
+
+
+                    <h2 class="section-title">
+
+                        Subject Skills
+
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        Points earned from your contributions.
+
+                    </p>
+
+
+                    <div id="subjectList" class="profile-display-box"></div>
+                    <small class="profile-counter"><span id="skillsCount">0</span>/300</small>
+
+                </section>
+
+
+                <!-- ACHIEVEMENTS -->
+
+                <section class="section" id="achievementsSection">
+
+
+                    <h2 class="section-title">
+
+                        Achievements
+
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        Recognition earned through
+                        contribution.
+
+                    </p>
+
+
+                    <textarea
+                        class="achievement-list profile-display-box"
+                        id="achievementList"
+                        maxlength="500"
+                        placeholder="Add your achievements, one per line"
+                        aria-label="Achievements"></textarea>
+                    <small class="profile-counter"><span id="achievementsCount">0</span>/500</small>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+        /* =====================================================
+           THEME
+        ===================================================== */
+
+        const savedTheme =
+            localStorage.getItem(
+                "perspectra-theme"
+            );
+
+
+        if (savedTheme === "light") {
+
+            document.body.classList.add("light");
+
+            document.getElementById(
+                "themeButton"
+            ).textContent = "☀";
+
+        } else {
+
+            document.getElementById(
+                "themeButton"
+            ).textContent = "☾";
+        }
+
+
+        function toggleTheme() {
+
+            document.body.classList.toggle(
+                "light"
+            );
+
+
+            const isLight =
+                document.body.classList.contains(
+                    "light"
+                );
+
+
+            localStorage.setItem(
+                "perspectra-theme",
+                isLight
+                    ? "light"
+                    : "dark"
+            );
+
+
+            document.getElementById(
+                "themeButton"
+            ).textContent =
+                isLight
+                    ? "☀"
+                    : "☾";
+        }
+
+
+        /* =====================================================
+           GO TO HOME
+        ===================================================== */
+
+        function goHome() {
+
+            window.location.href =
+                "home.html";
+        }
+
+
+        /* =====================================================
+           EDIT PROFILE
+        ===================================================== */
+
+        function editProfile() {
+
+            alert(
+                "Profile editing will be connected to the backend."
+            );
+        }
+
+
+        /* =====================================================
+           LOAD PROFILE
+           
+           Backend endpoint:
+           GET /api/auth/me
+        ===================================================== */
+
+        async function loadProfile() {
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/auth/me",
+                        {
+                            method: "GET",
+
+                            credentials: "include"
+                        }
+                    );
+
+
+                /* -----------------------------------------
+                   NOT LOGGED IN
+                ------------------------------------------ */
+
+                if (
+                    response.status === 401
+                ) {
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+                }
+
+
+                /* -----------------------------------------
+                   SERVER ERROR
+                ------------------------------------------ */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Could not load profile"
+                    );
+                }
+
+
+                const student =
+                    await response.json();
+
+
+                /* -----------------------------------------
+                   NAME
+                ------------------------------------------ */
+
+                const name =
+                    student.name ||
+                    "Student";
+
+
+                document.getElementById(
+                    "studentName"
+                ).textContent =
+                    name;
+
+
+                /* -----------------------------------------
+                   EMAIL
+                ------------------------------------------ */
+
+                document.getElementById(
+                    "studentEmail"
+                ).textContent =
+                    student.email ||
+                    "";
+
+
+                /* -----------------------------------------
+                   ROLE
+                ------------------------------------------ */
+
+                document.getElementById(
+                    "studentRole"
+                ).textContent =
+                    student.role ||
+                    "Student";
+
+
+                /* -----------------------------------------
+                   AVATAR INITIAL
+                ------------------------------------------ */
+
+                const firstLetter =
+                    name
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                document.getElementById(
+                    "profileAvatar"
+                ).textContent =
+                    firstLetter || "S";
+
+
+                /* -----------------------------------------
+                   STATISTICS
+                ------------------------------------------ */
+
+                document.getElementById(
+                    "totalPoints"
+                ).textContent =
+                    student.totalPoints ??
+                    0;
+
+
+                document.getElementById(
+                    "questionsCount"
+                ).textContent =
+                    student.questionsCount ??
+                    0;
+
+
+                document.getElementById(
+                    "answersCount"
+                ).textContent =
+                    student.answersCount ??
+                    0;
+
+
+                document.getElementById(
+                    "rank"
+                ).textContent =
+                    student.rank ??
+                    "—";
+
+
+                /* -----------------------------------------
+                   ABOUT
+                ------------------------------------------ */
+
+                if (student.about) {
+
+                    document.getElementById(
+                        "about"
+                    ).value =
+                        student.about;
+                }
+
+
+                /* -----------------------------------------
+                   SUBJECT POINTS
+                ------------------------------------------ */
+
+                if (
+                    student.subjectPoints &&
+                    student.subjectPoints.length > 0
+                ) {
+
+                    displaySubjects(
+                        student.subjectPoints
+                    );
+                }
+
+
+                /* -----------------------------------------
+                   ACHIEVEMENTS
+                ------------------------------------------ */
+
+                if (
+                    student.achievements &&
+                    student.achievements.length > 0
+                ) {
+
+                    displayAchievements(
+                        student.achievements
+                    );
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Profile error:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "studentName"
+                ).textContent =
+                    "Unable to load profile";
+
+
+                document.getElementById(
+                    "studentEmail"
+                ).textContent =
+                    "Please try again later.";
+            }
+        }
+
+
+        /* =====================================================
+           DISPLAY SUBJECTS
+        ===================================================== */
+
+        function displaySubjects(
+            subjects
+        ) {
+
+            const container =
+                document.getElementById(
+                    "subjectList"
+                );
+
+
+            container.innerHTML = "";
+
+
+            subjects.forEach(
+                subject => {
+
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "subject";
+
+
+                    const points =
+                        Number(
+                            subject.points
+                        ) || 0;
+
+
+                    const percentage =
+                        Math.min(
+                            points,
+                            100
+                        );
+
+
+                    item.innerHTML = `
+
+                        <div class="subject-top">
+
+                            <span
+                                class="subject-name">
+
+                                ${escapeHTML(
+                                    subject.subject
+                                )}
+
+                            </span>
+
+
+                            <span
+                                class="subject-points">
+
+                                ${points} pts
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-fill"
+                                style="
+                                    width:
+                                    ${percentage}%;
+                                ">
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        item
+                    );
+
+                }
+            );
+        }
+
+
+        /* =====================================================
+           DISPLAY ACHIEVEMENTS
+        ===================================================== */
+
+        function displayAchievements(
+            achievements
+        ) {
+
+            const container =
+                document.getElementById(
+                    "achievementList"
+                );
+
+
+            container.value = achievements.join("\n");
+        }
+
+
+        /* =====================================================
+           SECURITY
+        ===================================================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+        }
+
+
+        /* =====================================================
+           START PROFILE
+        ===================================================== */
+
+        void 0;
+
+
+    </script>
+
+
+
+<script id="perspectra-global-theme">
+(function(){
+  const KEY='perspectra-theme';
+  const oldKey='perspectraTheme';
+  const saved=localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark';
+  function apply(theme){
+    const t=theme==='light'?'light':'dark';
+    localStorage.setItem(KEY,t);
+    localStorage.setItem(oldKey,t);
+    document.documentElement.setAttribute('data-theme',t);
+    document.body.classList.toggle('light',t==='light');
+    const b=document.getElementById('globalThemeBtn');
+    if(b)b.textContent=t==='light'?'🌙':'☀️';
+  }
+  apply(saved);
+  const b=document.getElementById('globalThemeBtn');
+  if(b)b.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+})();
+</script>
+
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and  for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+<script type="module" src="firebase-student.js"></script>
+</body>
+
+</html>

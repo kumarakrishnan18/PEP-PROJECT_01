@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perspectra — Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0A0E27; --bg2:#12142E;
+    --surface:#171B33; --surface2:#1D2140;
+    --border: rgba(255,255,255,0.08);
+    --text:#F3F1FF; --text-muted: rgba(243,241,255,0.6); --text-faint: rgba(243,241,255,0.4);
+    --violet:#6D5DFB; --violet-bright:#8B7CFF;
+    --cyan:#3FD0FF; --gold:#F5B93F; --silver:#C7CBE0; --bronze:#E08A5C;
+    --grad-btn: linear-gradient(90deg, #7C6CFB, #3FA9F5);
+    --shadow: 0 10px 40px rgba(0,0,0,0.35);
+    --danger:#F26D6D;
+  }
+  html[data-theme="light"]{
+    --bg1:#F1F1FC; --bg2:#E7E9FB;
+    --surface:#FFFFFF; --surface2:#F6F6FE;
+    --border: rgba(30,20,80,0.09);
+    --text:#211A45; --text-muted: rgba(33,26,69,0.62); --text-faint: rgba(33,26,69,0.4);
+    --violet:#5B4FE0; --violet-bright:#7166EA;
+    --cyan:#1CA7C9;
+    --shadow: 0 10px 30px rgba(70,60,150,0.12);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; min-height:100%; font-family:'Inter', sans-serif; }
+  body{
+    background: radial-gradient(ellipse at 15% 10%, color-mix(in srgb, var(--violet) 20%, transparent), transparent 45%),
+                radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--cyan) 16%, transparent), transparent 45%),
+                linear-gradient(160deg, var(--bg1), var(--bg2));
+    color:var(--text); min-height:100vh; transition: background 0.4s ease, color 0.4s ease;
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 48px; max-width:1180px; margin:0 auto; }
+  .logo{ font-family:'Poppins', sans-serif; font-weight:800; font-size:20px; letter-spacing:0.03em;
+    background: linear-gradient(90deg, var(--violet-bright), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .nav-links{ display:flex; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:5px; }
+  .nav-links button{ font-family:'Inter',sans-serif; text-decoration:none; color:var(--text-muted); font-size:14px; font-weight:600; padding:9px 16px; border-radius:10px; transition: color 0.2s ease, background 0.2s ease; border:none; background:transparent; cursor:pointer; }
+  .nav-links button.active{ background: var(--grad-btn); color:#fff; }
+  .nav-links button:hover:not(.active){ color:var(--text); }
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .theme-toggle{ width:42px; height:42px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform 0.2s ease; }
+  .theme-toggle:hover{ transform:scale(1.08); }
+  .theme-toggle svg{ width:19px; height:19px; }
+
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  /* ---------- Leaderboard view ---------- */
+  .page-head{ max-width:1180px; margin:18px auto 0; padding:0 48px; }
+  .page-head h1{ font-family:'Poppins', sans-serif; font-weight:700; font-size:32px; margin:0 0 6px; }
+  .page-head p{ color:var(--text-muted); margin:0; font-size:15px; }
+
+  .award-card{ max-width:1084px; margin:26px auto 0; padding:22px 26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); }
+  .award-head{ display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+  .award-head h3{ margin:0; font-size:15px; font-family:'Poppins',sans-serif; font-weight:700; }
+  .award-head span{ font-size:13px; color:var(--text-faint); }
+  .chevron{ transition: transform 0.25s ease; }
+  .award-card.open .chevron{ transform:rotate(180deg); }
+  .award-form{ display:none; grid-template-columns:1.2fr 1fr 0.8fr 1fr auto; gap:12px; margin-top:18px; align-items:end; }
+  .award-card.open .award-form{ display:grid; }
+  .award-form label{ display:block; font-size:12px; color:var(--text-faint); margin-bottom:5px; }
+  .award-form input, .award-form select{ width:100%; padding:10px 12px; border-radius:9px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:13.5px; font-family:'Inter',sans-serif; outline:none; }
+  .award-form input:focus, .award-form select:focus{ border-color:var(--violet); }
+  .award-btn{ padding:10px 18px; border:none; border-radius:9px; background:var(--grad-btn); color:#fff; font-weight:700; font-size:13.5px; cursor:pointer; white-space:nowrap; }
+  .award-msg{ grid-column:1 / -1; font-size:12.5px; margin-top:2px; min-height:16px; }
+  .award-msg.ok{ color:#4FD68C; }
+  .award-msg.err{ color:var(--danger); }
+
+  .filters{ max-width:1180px; margin:22px auto 0; padding:0 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+  .segmented{ display:flex; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:4px; }
+  .segmented button{ border:none; background:transparent; color:var(--text-muted); font-weight:600; font-size:13.5px; padding:8px 16px; border-radius:9px; cursor:pointer; font-family:'Inter',sans-serif; transition: background 0.25s ease, color 0.25s ease; }
+  .segmented button.active{ background:var(--grad-btn); color:#fff; }
+  .chip-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{ border:1px solid var(--border); background:var(--surface); color:var(--text-muted); font-size:13px; font-weight:600; padding:8px 15px; border-radius:20px; cursor:pointer; transition: all 0.2s ease; }
+  .chip.active{ background:var(--grad-btn); color:#fff; border-color:transparent; }
+  .chip:hover:not(.active){ color:var(--text); border-color: var(--violet); }
+
+  .podium{ max-width:1180px; margin:32px auto 0; padding:0 48px; display:flex; align-items:flex-end; justify-content:center; gap:22px; flex-wrap:wrap; min-height:10px; }
+  .podium-card{ background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:26px 22px 22px; text-align:center; width:220px; box-shadow: var(--shadow); opacity:0; transform: translateY(24px); animation: riseIn 0.6s ease forwards; }
+  .podium-card.rank1{ width:250px; padding-top:34px; order:2; }
+  .podium-card.rank2{ order:1; margin-bottom:18px; }
+  .podium-card.rank3{ order:3; margin-bottom:30px; }
+  @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
+  .medal{ width:56px; height:56px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-family:'Poppins', sans-serif; font-weight:800; font-size:20px; color:#171B33; }
+  .rank1 .medal{ width:66px; height:66px; background: linear-gradient(135deg, var(--gold), #FFE9A8); box-shadow:0 0 26px rgba(245,185,63,0.5); font-size:24px; }
+  .rank2 .medal{ background: linear-gradient(135deg, var(--silver), #EDEFFA); }
+  .rank3 .medal{ background: linear-gradient(135deg, var(--bronze), #F2C4A5); }
+  .podium-card .name{ font-weight:700; font-size:16px; margin-bottom:4px; }
+  .podium-card .subject{ font-size:12.5px; color:var(--text-faint); margin-bottom:10px; }
+  .podium-card .pts{ font-family:'Poppins', sans-serif; font-weight:800; font-size:22px; background: linear-gradient(90deg, var(--violet-bright), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .podium-card .pts-label{ font-size:11px; color:var(--text-faint); margin-top:2px; }
+
+  .list-wrap{ max-width:1180px; margin:40px auto 60px; padding:0 48px; }
+  .list-card{ background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow: var(--shadow); }
+  .row{ display:flex; align-items:center; gap:16px; padding:16px 24px; border-bottom:1px solid var(--border); opacity:0; transform:translateX(-12px); animation: slideIn 0.5s ease forwards; transition: background 0.2s ease; }
+  .row:last-child{ border-bottom:none; }
+  .row:hover{ background:var(--surface2); }
+  @keyframes slideIn{ to{ opacity:1; transform:translateX(0); } }
+  .row .rank-num{ width:26px; font-weight:700; color:var(--text-faint); font-size:14px; }
+  .row .row-avatar{ width:38px; height:38px; border-radius:50%; flex-shrink:0; background: var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; color:var(--text); }
+  .row .row-name{ font-weight:600; font-size:14.5px; flex:1; }
+  .row .row-tag{ font-size:11.5px; font-weight:600; color:var(--violet-bright); background: color-mix(in srgb, var(--violet) 15%, transparent); padding:4px 10px; border-radius:20px; margin-right:6px; }
+  .row .row-pts{ font-weight:700; font-size:15px; min-width:70px; text-align:right; }
+
+  /* ---------- Skills view ---------- */
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 48px 60px; }
+  .search-card{ margin-top:18px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow); }
+  .search-card label{ font-size:13px; color:var(--text-faint); white-space:nowrap; }
+  .search-card input{ flex:1; padding:10px 14px; border-radius:9px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:14px; outline:none; }
+  .search-card input:focus{ border-color:var(--violet); }
+  .search-card .hint{ font-size:12px; color:var(--text-faint); }
+
+  .hero{ display:flex; align-items:center; gap:26px; background:var(--surface); border:1px solid var(--border); border-radius:22px; padding:30px 32px; margin-top:18px; box-shadow: var(--shadow); }
+  .hero-avatar{ width:82px; height:82px; border-radius:50%; flex-shrink:0; background: conic-gradient(from 90deg, var(--violet-bright), var(--cyan), var(--violet-bright)); display:flex; align-items:center; justify-content:center; animation: rotateRing 6s linear infinite; }
+  @keyframes rotateRing{ to{ filter:hue-rotate(360deg); } }
+  .hero-avatar-inner{ width:74px; height:74px; border-radius:50%; background:var(--surface); display:flex; align-items:center; justify-content:center; font-family:'Poppins', sans-serif; font-weight:800; font-size:24px; color:var(--text); }
+  .hero-info h1{ font-family:'Poppins', sans-serif; font-weight:700; font-size:24px; margin:0 0 4px; }
+  .hero-info .role-chip{ display:inline-block; font-size:12px; font-weight:700; color:var(--violet-bright); background: color-mix(in srgb, var(--violet) 16%, transparent); padding:4px 12px; border-radius:20px; margin-bottom:6px; }
+  .hero-info p{ margin:0; font-size:13.5px; color:var(--text-faint); }
+  .hero-total{ margin-left:auto; text-align:right; }
+  .hero-total .num{ font-family:'Poppins', sans-serif; font-weight:800; font-size:34px; background: linear-gradient(90deg, var(--violet-bright), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero-total .lbl{ font-size:12px; color:var(--text-faint); }
+
+  .section-title{ font-family:'Poppins', sans-serif; font-weight:700; font-size:18px; margin:34px 0 16px; }
+  .skill-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .skill-card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px 22px; box-shadow: var(--shadow); }
+  .skill-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+  .skill-top .sname{ font-weight:700; font-size:15px; }
+  .skill-top .spts{ font-weight:700; font-size:14px; color:var(--violet-bright); }
+  .bar-track{ height:9px; border-radius:6px; background:var(--surface2); overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:6px; background: linear-gradient(90deg, var(--violet-bright), var(--cyan)); width:0%; transition: width 1s cubic-bezier(.3,.9,.4,1); }
+  .tier-label{ margin-top:8px; font-size:11.5px; color:var(--text-faint); }
+
+  .badge-row{ display:flex; flex-wrap:wrap; gap:12px; }
+  .badge{ display:flex; align-items:center; gap:9px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:12px 16px; box-shadow: var(--shadow); }
+  .badge-icon{ width:34px; height:34px; border-radius:10px; background: linear-gradient(135deg, var(--gold), #FFE29A); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
+  .badge-text .t{ font-size:13.5px; font-weight:700; }
+  .badge-text .s{ font-size:11.5px; color:var(--text-faint); }
+
+  .activity-card{ background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow: var(--shadow); }
+  .act-row{ display:flex; align-items:center; gap:14px; padding:15px 22px; border-bottom:1px solid var(--border); }
+  .act-row:last-child{ border-bottom:none; }
+  .act-dot{ width:9px; height:9px; border-radius:50%; background: linear-gradient(90deg, var(--violet-bright), var(--cyan)); flex-shrink:0; }
+  .act-text{ flex:1; font-size:14px; }
+  .act-text b{ font-weight:700; }
+  .act-time{ font-size:12px; color:var(--text-faint); white-space:nowrap; }
+
+  .empty-state{ text-align:center; padding:50px 20px; color:var(--text-faint); font-size:14px; }
+  .empty-state a{ color:var(--violet-bright); font-weight:600; text-decoration:none; cursor:pointer; }
+  .empty-state b{ color:var(--text); }
+  .loading{ text-align:center; padding:40px; color:var(--text-faint); font-size:14px; }
+
+  @media (max-width:820px){
+    nav{ padding:18px 20px; flex-wrap:wrap; gap:12px; }
+    .nav-links{ order:3; width:100%; }
+    .page-head, .filters, .podium, .list-wrap, .wrap{ padding-left:20px; padding-right:20px; }
+    .award-card{ margin-left:20px; margin-right:20px; }
+    .award-form{ grid-template-columns:1fr 1fr; }
+    .podium-card{ width:47%; }
+    .podium-card.rank1{ width:100%; order:-1; }
+    .hero{ flex-wrap:wrap; }
+    .hero-total{ margin-left:0; text-align:left; width:100%; }
+    .skill-grid{ grid-template-columns:1fr; }
+    .search-card{ flex-wrap:wrap; }
+  }
+#awardCard{display:none!important}
+</style>
+<style>
+
+/* PERSPECTRA GLOBAL DASHBOARD */
+.global-dashboard{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:28px;padding:14px 4%;background:rgba(10,14,39,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px);font-family:Inter,Arial,sans-serif}
+body.light .global-dashboard{background:rgba(255,255,255,.96);border-bottom-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-brand{font-weight:800;font-size:20px;letter-spacing:.4px;color:#f3f1ff;text-decoration:none;white-space:nowrap}
+body.light .global-dashboard .gd-brand{color:#171b33}
+.global-dashboard .gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+.global-dashboard .gd-nav a{color:rgba(243,241,255,.72);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s}
+body.light .global-dashboard .gd-nav a{color:rgba(23,27,51,.70)}
+.global-dashboard .gd-nav a:hover,.global-dashboard .gd-nav a.active{color:#fff;background:rgba(109,93,251,.18)}
+body.light .global-dashboard .gd-nav a:hover,body.light .global-dashboard .gd-nav a.active{color:#171b33;background:rgba(109,93,251,.12)}
+.global-dashboard .gd-actions{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.global-dashboard button,.global-dashboard .gd-login{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#f3f1ff;border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+body.light .global-dashboard button,body.light .global-dashboard .gd-login{background:rgba(20,24,60,.05);color:#171b33;border-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:none}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px}.global-dashboard .gd-brand{font-size:17px}.global-dashboard .gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.global-dashboard{flex-wrap:wrap}}
+
+</style>
+<style>body > header:not(.global-dashboard), body > nav:not(.global-dashboard){display:none !important;}</style>
+</head>
+<body>
+<header class="global-dashboard" id="globalDashboard">
+  <a class="gd-brand" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav">
+    <a href="home.html" id="discussionNavLink">Discussions & Feed</a>
+    <a href="leaderboard.html" class="active">Leaderboard & Skills</a>
+    <a href="sprofile.html" id="profileNavLink">Profile</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="globalThemeBtn" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn'); return true;">Logout</a>
+  </div>
+</header>
+
+<nav>
+  <span class="logo">PERSPECTRA</span>
+  <div class="nav-links">
+    <button id="navLeaderboard" class="active">Leaderboard</button>
+    <button id="navSkills">Skills</button>
+  </div>
+  <div class="nav-right">
+    <div class="theme-toggle" id="themeToggle"></div>
+  </div>
+</nav>
+
+<!-- ================= LEADERBOARD VIEW ================= -->
+<section class="view active" id="viewLeaderboard">
+  <div class="page-head">
+    <h1>Top 5 Students</h1>
+    <p class="leaderboard-note">The leaderboard is automatically generated from students' actual results and earned contribution points.</p>
+  </div>
+  <div class="podium" id="podiumWrap"></div>
+  <div class="list-wrap"><div class="list-card" id="rowList"></div></div>
+</section>
+
+<!-- ================= SKILLS VIEW ================= -->
+<section class="view" id="viewSkills">
+  <div class="wrap">
+    <div class="search-card">
+      <label for="studentInput">Viewing skills for</label>
+      <input type="text" id="studentInput" list="studentList" placeholder="Type a student's name…">
+      <datalist id="studentList"></datalist>
+      <span class="hint">Data pulled live from real awarded points</span>
+    </div>
+
+    <div id="skillContent">
+      <div class="loading">Loading skill data…</div>
+    </div>
+  </div>
+</section>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script type="module" src="firebase-leaderboard.js"></script>
+<script>
+  const STORAGE_KEY = 'perspectra-points-records';
+
+  function initials(name){
+    return String(name||'Student').trim().split(/\s+/).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+  }
+
+  function localFallback(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const records = raw ? JSON.parse(raw) : [];
+      const totals = {};
+      records.forEach(r=>{
+        const name=r.student||r.studentName;
+        if(!name) return;
+        totals[name]=(totals[name]||0)+Number(r.points||0);
+      });
+      return Object.entries(totals)
+        .map(([name,total])=>({name,total}))
+        .sort((a,b)=>b.total-a.total)
+        .slice(0,5);
+    }catch(e){ return []; }
+  }
+
+  function renderTopFive(rows){
+    const podium=document.getElementById('podiumWrap');
+    const list=document.getElementById('rowList');
+    const normalized=(rows||[]).slice(0,5).map((x,i)=>({
+      name:x.name||x.studentName||x.student||('Student '+(i+1)),
+      total:Number(x.total??x.points??x.score??0)
+    }));
+    if(!normalized.length){
+      podium.innerHTML='';
+      list.innerHTML='<div class="empty-state">No student results are available yet.</div>';
+      return;
+    }
+    podium.innerHTML=normalized.slice(0,3).map((e,i)=>`
+      <div class="podium-card rank${i+1}">
+        <div class="medal">${i+1}</div>
+        <div class="name">${e.name}</div>
+        <div class="pts">${e.total}</div>
+        <div class="pts-label">points</div>
+      </div>`).join('');
+    list.innerHTML=normalized.slice(3,5).map((e,i)=>`
+      <div class="row">
+        <span class="rank-num">${i+4}</span>
+        <span class="row-avatar">${initials(e.name)}</span>
+        <span class="row-name">${e.name}</span>
+        <span class="row-pts">${e.total}</span>
+      </div>`).join('');
+  }
+
+  async function loadLeaderboard(){
+    const list=document.getElementById('rowList');
+    list.innerHTML='<div class="loading">Loading Top 5 students…</div>';
+    try{
+      const response=await fetch('/api/leaderboard?limit=5',{credentials:'include'});
+      if(!response.ok) throw new Error('Leaderboard API unavailable');
+      const data=await response.json();
+      const rows=Array.isArray(data) ? data : (data.students||data.leaderboard||data.results||[]);
+      renderTopFive(rows);
+    }catch(error){
+      // Temporary local fallback only when the backend is unavailable.
+      renderTopFive(localFallback());
+    }
+  }
+
+  void 0;
+</script>
+
+<script id="perspectra-global-theme">
+(function(){
+  const KEY='perspectra-theme';
+  const oldKey='perspectraTheme';
+  const saved=localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark';
+  function apply(theme){
+    const t=theme==='light'?'light':'dark';
+    localStorage.setItem(KEY,t);
+    localStorage.setItem(oldKey,t);
+    document.documentElement.setAttribute('data-theme',t);
+    document.body.classList.toggle('light',t==='light');
+    const b=document.getElementById('globalThemeBtn');
+    if(b)b.textContent=t==='light'?'🌙':'☀️';
+  }
+  apply(saved);
+  const b=document.getElementById('globalThemeBtn');
+  if(b)b.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+})();
+</script>
+
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const discussionNav = document.getElementById('discussionNavLink');
+  if(discussionNav){
+    discussionNav.href = role === 'mentor' ? 'discussion.html?role=mentor' : role === 'admin' ? 'discussion.html?role=admin' : 'home.html';
+  }
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body>
+</html>

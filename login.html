@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perspectra | Login</title>
+
+<style>
+
+/* =========================================================
+   THEME VARIABLES
+========================================================= */
+
+:root {
+
+    /* DARK */
+
+    --bg: #050816;
+    --bg2: #0b1230;
+
+    --card: rgba(13,20,43,.86);
+    --card-border: rgba(148,163,255,.18);
+
+    --text: #f8fafc;
+    --secondary: #9ca9c7;
+
+    --input: rgba(255,255,255,.045);
+    --input-border: rgba(148,163,255,.18);
+
+    --primary: #6366f1;
+    --purple: #8b5cf6;
+    --cyan: #22d3ee;
+
+    --shadow: rgba(0,0,0,.5);
+
+    --orb-opacity: .32;
+
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light {
+
+    --bg: #c5cee0;
+    --bg2: #dfe4ef;
+
+    --card: rgba(238,242,249,.82);
+    --card-border: rgba(71,85,120,.20);
+
+    --text: #172033;
+    --secondary: #59677f;
+
+    --input: rgba(255,255,255,.38);
+    --input-border: rgba(71,85,120,.20);
+
+    --primary: #5146c9;
+    --purple: #7545b8;
+    --cyan: #087f9b;
+
+    --shadow: rgba(47,55,90,.22);
+
+    --orb-opacity: .12;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    transition:
+
+        background .8s ease,
+        color .6s ease;
+
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: -10;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(79,70,229,.24),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(6,182,212,.18),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    transition:
+
+        background .8s ease;
+
+}
+
+
+/* =========================================================
+   LIGHT MODE BACKGROUND
+========================================================= */
+
+body.light .background {
+
+    background:
+
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(99,102,241,.16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(8,127,155,.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #c5cee0,
+            #dfe4ef
+        );
+
+}
+
+
+/* =========================================================
+   FLOATING ORBS
+========================================================= */
+
+.orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(8px);
+
+    opacity: var(--orb-opacity);
+
+    pointer-events: none;
+
+    transition: opacity .7s ease;
+
+    animation: floatOrb 12s infinite ease-in-out;
+
+}
+
+
+.orb.one {
+
+    width: 280px;
+    height: 280px;
+
+    background: #4f46e5;
+
+    top: -100px;
+    left: -80px;
+
+}
+
+
+.orb.two {
+
+    width: 190px;
+    height: 190px;
+
+    background: #8b5cf6;
+
+    top: 15%;
+    right: 8%;
+
+    animation-delay: 2s;
+
+}
+
+
+.orb.three {
+
+    width: 300px;
+    height: 300px;
+
+    background: #0891b2;
+
+    right: -100px;
+    bottom: -120px;
+
+    animation-delay: 4s;
+
+}
+
+
+.orb.four {
+
+    width: 130px;
+    height: 130px;
+
+    background: #6366f1;
+
+    left: 25%;
+    bottom: 8%;
+
+    animation-delay: 1s;
+
+}
+
+
+@keyframes floatOrb {
+
+    0%,100% {
+
+        transform:
+            translate(0,0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(35px,-35px)
+            scale(1.1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DARK MODE STARS
+========================================================= */
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    transition: opacity .7s ease;
+
+}
+
+
+body.light .stars {
+
+    opacity: 0;
+
+}
+
+
+.star {
+
+    position: absolute;
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+
+        0 0 6px white,
+
+        0 0 14px #818cf8;
+
+    animation: twinkle 3s infinite ease-in-out;
+
+}
+
+
+.star:nth-child(1)  { top:8%; left:8%; animation-delay:.2s; }
+.star:nth-child(2)  { top:14%; left:19%; animation-delay:1s; }
+.star:nth-child(3)  { top:7%; left:32%; animation-delay:2s; }
+.star:nth-child(4)  { top:20%; left:45%; animation-delay:.5s; }
+.star:nth-child(5)  { top:12%; left:58%; animation-delay:2.5s; }
+.star:nth-child(6)  { top:18%; left:70%; animation-delay:1.3s; }
+.star:nth-child(7)  { top:8%; left:84%; animation-delay:.7s; }
+.star:nth-child(8)  { top:30%; left:93%; animation-delay:1.8s; }
+.star:nth-child(9)  { top:40%; left:7%; animation-delay:.4s; }
+.star:nth-child(10) { top:50%; left:18%; animation-delay:2.2s; }
+.star:nth-child(11) { top:34%; left:31%; animation-delay:1.2s; }
+.star:nth-child(12) { top:45%; left:43%; animation-delay:.8s; }
+.star:nth-child(13) { top:30%; left:60%; animation-delay:2.7s; }
+.star:nth-child(14) { top:45%; left:75%; animation-delay:.3s; }
+.star:nth-child(15) { top:36%; left:88%; animation-delay:1.5s; }
+.star:nth-child(16) { top:60%; left:6%; animation-delay:2.1s; }
+.star:nth-child(17) { top:68%; left:16%; animation-delay:.6s; }
+.star:nth-child(18) { top:57%; left:28%; animation-delay:1.7s; }
+.star:nth-child(19) { top:72%; left:40%; animation-delay:.9s; }
+.star:nth-child(20) { top:63%; left:54%; animation-delay:2.4s; }
+.star:nth-child(21) { top:74%; left:68%; animation-delay:1.1s; }
+.star:nth-child(22) { top:60%; left:82%; animation-delay:.4s; }
+.star:nth-child(23) { top:72%; left:93%; animation-delay:2.8s; }
+.star:nth-child(24) { top:86%; left:9%; animation-delay:1.5s; }
+.star:nth-child(25) { top:90%; left:25%; animation-delay:.8s; }
+.star:nth-child(26) { top:82%; left:48%; animation-delay:2s; }
+.star:nth-child(27) { top:91%; left:70%; animation-delay:1.3s; }
+.star:nth-child(28) { top:84%; left:86%; animation-delay:.5s; }
+
+
+@keyframes twinkle {
+
+    0%,100% {
+
+        opacity:.2;
+
+        transform:scale(.7);
+
+    }
+
+    50% {
+
+        opacity:1;
+
+        transform:scale(1.6);
+
+    }
+
+}
+
+
+/* =========================================================
+   LIGHT MODE PARTICLES
+========================================================= */
+
+.light-particles {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    transition: opacity .6s ease;
+
+}
+
+
+body:not(.light) .light-particles {
+
+    opacity: 0;
+
+}
+
+
+.light-dot {
+
+    position: absolute;
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: rgba(81,70,201,.20);
+
+    box-shadow:
+
+        0 0 12px rgba(81,70,201,.18);
+
+    animation: lightFloat 8s infinite ease-in-out;
+
+}
+
+
+.light-dot:nth-child(1) {
+
+    top:15%;
+    left:10%;
+
+    animation-delay:0s;
+
+}
+
+
+.light-dot:nth-child(2) {
+
+    top:25%;
+    left:82%;
+
+    animation-delay:2s;
+
+}
+
+
+.light-dot:nth-child(3) {
+
+    top:70%;
+    left:12%;
+
+    animation-delay:4s;
+
+}
+
+
+.light-dot:nth-child(4) {
+
+    top:80%;
+    left:75%;
+
+    animation-delay:1s;
+
+}
+
+
+.light-dot:nth-child(5) {
+
+    top:50%;
+    left:90%;
+
+    animation-delay:3s;
+
+}
+
+
+.light-dot:nth-child(6) {
+
+    top:35%;
+    left:55%;
+
+    animation-delay:5s;
+
+}
+
+
+@keyframes lightFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity:.3;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-25px)
+            scale(1.4);
+
+        opacity:.7;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+.mouse-glow {
+
+    position: fixed;
+
+    width: 280px;
+
+    height: 280px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(99,102,241,.13),
+            transparent 65%
+        );
+
+    transform:
+        translate(-50%,-50%);
+
+    transition:
+
+        opacity .4s ease;
+
+}
+
+
+body:not(.light) .mouse-glow {
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(99,102,241,.12),
+            transparent 65%
+        );
+
+}
+
+
+/* =========================================================
+   THEME BUTTON
+========================================================= */
+
+.theme-toggle {
+
+    position: fixed;
+
+    top: 24px;
+
+    right: 25px;
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--card-border);
+
+    background: var(--toggle-bg);
+
+    backdrop-filter: blur(15px);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    font-size: 20px;
+
+    transition:
+
+        transform .4s ease,
+        box-shadow .4s ease,
+        background .5s ease;
+
+}
+
+
+.theme-toggle:hover {
+
+    transform:
+        rotate(25deg)
+        scale(1.15);
+
+    box-shadow:
+
+        0 10px 30px var(--shadow);
+
+}
+
+
+.theme-toggle:active {
+
+    transform:
+        rotate(-20deg)
+        scale(.9);
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-wrapper {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    min-height: 610px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    background: var(--card);
+
+    border: 1px solid var(--card-border);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    backdrop-filter: blur(25px);
+
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow:
+
+        0 30px 80px var(--shadow);
+
+    transition:
+
+        background .7s ease,
+        border .7s ease,
+        box-shadow .7s ease;
+
+    animation: cardEntry .8s ease;
+
+}
+
+
+@keyframes cardEntry {
+
+    from {
+
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand-section {
+
+    padding: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+.brand-section::before {
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    border-radius:50%;
+
+    border:1px solid var(--card-border);
+
+    left:-290px;
+
+    top:-80px;
+
+    animation:
+        rotateCircle 25s linear infinite;
+
+}
+
+
+.brand-section::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    border-radius:50%;
+
+    border:1px solid var(--card-border);
+
+    right:-190px;
+
+    bottom:-130px;
+
+    animation:
+        rotateCircle 18s linear infinite reverse;
+
+}
+
+
+@keyframes rotateCircle {
+
+    from {
+
+        transform:rotate(0);
+
+    }
+
+    to {
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:44px;
+
+    font-weight:800;
+
+    letter-spacing:5px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--purple),
+            var(--cyan),
+            var(--primary)
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    animation:
+        logoGradient 5s linear infinite;
+
+    margin-bottom:18px;
+
+}
+
+
+@keyframes logoGradient {
+
+    0% {
+
+        background-position:0%;
+
+    }
+
+    100% {
+
+        background-position:300%;
+
+    }
+
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.tagline {
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:440px;
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    color:var(--secondary);
+
+    transition:color .5s ease;
+
+}
+
+
+.tagline strong {
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================================
+   PERSPECTIVE VISUAL
+========================================================= */
+
+.perspective-visual {
+
+    width:320px;
+
+    height:190px;
+
+    position:relative;
+
+    margin-top:35px;
+
+    z-index:2;
+
+}
+
+
+.ring {
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    border:1px solid var(--primary);
+
+    animation:
+        ringPulse 4s infinite ease-in-out;
+
+}
+
+
+.ring.one {
+
+    width:170px;
+    height:170px;
+
+}
+
+
+.ring.two {
+
+    width:120px;
+    height:120px;
+
+    animation-delay:.7s;
+
+}
+
+
+.ring.three {
+
+    width:72px;
+    height:72px;
+
+    animation-delay:1.4s;
+
+}
+
+
+@keyframes ringPulse {
+
+    0%,100% {
+
+        opacity:.25;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+    }
+
+    50% {
+
+        opacity:.85;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.08);
+
+    }
+
+}
+
+
+.center-dot {
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    width:25px;
+
+    height:25px;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:var(--cyan);
+
+    box-shadow:
+
+        0 0 15px var(--cyan),
+        0 0 40px rgba(34,211,238,.4);
+
+    animation:dotPulse 2s infinite;
+
+}
+
+
+@keyframes dotPulse {
+
+    0%,100% {
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.35);
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN SECTION
+========================================================= */
+
+.login-section {
+
+    padding:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    background:rgba(0,0,0,.10);
+
+    transition:
+
+        background .7s ease;
+
+}
+
+
+body.light .login-section {
+
+    background:
+        rgba(255,255,255,.16);
+
+}
+
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+.login-title {
+
+    font-size:31px;
+
+    margin-bottom:8px;
+
+}
+
+
+.login-subtitle {
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    color:var(--secondary);
+
+    margin-bottom:28px;
+
+}
+
+
+/* =========================================================
+   ROLE SELECTOR
+========================================================= */
+
+.role-selector {
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:5px;
+
+    padding:5px;
+
+    border-radius:14px;
+
+    background:var(--input);
+
+    border:1px solid var(--input-border);
+
+    margin-bottom:27px;
+
+}
+
+
+.role {
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:13px;
+
+    background:transparent;
+
+    color:var(--secondary);
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:
+
+        transform .25s ease,
+        color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.role:hover {
+
+    transform:translateY(-3px);
+
+    color:var(--text);
+
+}
+
+
+.role.active {
+
+    color:white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--purple)
+        );
+
+    box-shadow:
+
+        0 8px 25px
+        rgba(79,70,229,.3);
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.input-group {
+
+    position:relative;
+
+    margin-bottom:19px;
+
+}
+
+
+.input-group input {
+
+    width:100%;
+
+    padding:15px 16px;
+
+    border-radius:12px;
+
+    border:1px solid var(--input-border);
+
+    background:var(--input);
+
+    color:var(--text);
+
+    outline:none;
+
+    font-size:14px;
+
+    transition:
+
+        .3s ease;
+
+}
+
+
+.input-group input::placeholder {
+
+    color:var(--secondary);
+
+}
+
+
+.input-group input:hover {
+
+    border-color:var(--primary);
+
+}
+
+
+.input-group input:focus {
+
+    transform:
+        translateY(-2px);
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 0 0 3px
+        rgba(99,102,241,.12),
+
+        0 8px 20px
+        rgba(79,70,229,.10);
+
+}
+
+
+.input-group input.email-valid {
+
+    border-color: #22c55e;
+
+    box-shadow: 0 0 0 3px rgba(34,197,94,.12);
+
+}
+
+
+.input-group input.email-invalid {
+
+    border-color: #ef4444;
+
+    box-shadow: 0 0 0 3px rgba(239,68,68,.12);
+
+}
+
+
+.email-error {
+
+    display: none;
+
+    margin-top: 7px;
+
+    color: #ef4444;
+
+    font-size: 12px;
+
+}
+
+
+.email-error.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-box input {
+
+    padding-right:65px;
+
+}
+
+
+.show-password {
+
+    position:absolute;
+
+    right:14px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--secondary);
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+.show-password:hover {
+
+    color:var(--primary);
+
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.options {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:13px;
+
+    color:var(--secondary);
+
+    margin-bottom:24px;
+
+}
+
+
+.remember {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+}
+
+
+.remember input {
+
+    accent-color:var(--primary);
+
+}
+
+
+.forgot {
+
+    color:var(--primary);
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+}
+
+
+.forgot:hover {
+
+    transform:translateX(3px);
+
+    color:var(--purple);
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-btn {
+
+    position:relative;
+
+    overflow:hidden;
+
+    width:100%;
+
+    min-height:52px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            var(--primary),
+            var(--purple),
+            var(--cyan)
+        );
+
+    background-size:200%;
+
+    animation:
+        buttonGradient 5s ease infinite;
+
+    transition:
+
+        transform .25s ease,
+        box-shadow .3s ease;
+
+}
+
+.login-btn + .login-btn {
+
+    margin-top:14px;
+
+}
+
+
+@keyframes buttonGradient {
+
+    0% {
+
+        background-position:0% 50%;
+
+    }
+
+    50% {
+
+        background-position:100% 50%;
+
+    }
+
+    100% {
+
+        background-position:0% 50%;
+
+    }
+
+}
+
+
+.login-btn::before {
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:70%;
+
+    height:100%;
+
+    transform:skewX(-20deg);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            transparent
+        );
+
+    transition:left .6s ease;
+
+}
+
+
+.login-btn:hover::before {
+
+    left:140%;
+
+}
+
+
+.login-btn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.01);
+
+    box-shadow:
+
+        0 18px 35px
+        rgba(79,70,229,.35);
+
+}
+
+
+.login-btn:active {
+
+    transform:
+        translateY(0)
+        scale(.97);
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    min-height:22px;
+
+    margin-top:17px;
+
+    text-align:center;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security-text {
+
+    text-align:center;
+
+    margin-top:23px;
+
+    font-size:11px;
+
+    color:var(--secondary);
+
+    opacity:.8;
+
+}
+
+
+/* =========================================================
+   RIPPLE
+========================================================= */
+
+.ripple {
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.35);
+
+    transform:scale(0);
+
+    animation:ripple .6s linear;
+
+    pointer-events:none;
+
+}
+
+
+@keyframes ripple {
+
+    to {
+
+        transform:scale(4);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:800px) {
+
+    body {
+
+        overflow:auto;
+
+    }
+
+    .container {
+
+        padding:20px;
+
+    }
+
+    .login-wrapper {
+
+        grid-template-columns:1fr;
+
+        max-width:520px;
+
+    }
+
+    .brand-section {
+
+        min-height:350px;
+
+        padding:40px;
+
+    }
+
+    .login-section {
+
+        padding:40px;
+
+    }
+
+}
+
+
+@media(max-width:450px) {
+
+    .theme-toggle {
+
+        width:44px;
+
+        height:44px;
+
+        top:15px;
+
+        right:15px;
+
+    }
+
+    .brand-section {
+
+        padding:30px;
+
+    }
+
+    .login-section {
+
+        padding:30px;
+
+    }
+
+    .logo {
+
+        font-size:32px;
+
+        letter-spacing:3px;
+
+    }
+
+    .login-title {
+
+        font-size:26px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+====================================================== -->
+
+<div class="background">
+
+
+    <!-- Floating orbs -->
+
+    <div class="orb one"></div>
+
+    <div class="orb two"></div>
+
+    <div class="orb three"></div>
+
+    <div class="orb four"></div>
+
+
+    <!-- DARK MODE STARS -->
+
+    <div class="stars">
+
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+    </div>
+
+
+    <!-- LIGHT MODE FLOATING PARTICLES -->
+
+    <div class="light-particles">
+
+        <span class="light-dot"></span>
+
+        <span class="light-dot"></span>
+
+        <span class="light-dot"></span>
+
+        <span class="light-dot"></span>
+
+        <span class="light-dot"></span>
+
+        <span class="light-dot"></span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MOUSE FOLLOWING LIGHT
+====================================================== -->
+
+<div
+    class="mouse-glow"
+    id="mouseGlow">
+</div>
+
+
+<!-- =====================================================
+     THEME BUTTON
+====================================================== -->
+
+<button
+    class="theme-toggle"
+    id="themeToggle"
+    onclick="toggleTheme()">
+
+    🌙
+
+</button>
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="container">
+
+
+<div class="login-wrapper">
+
+
+    <!-- =================================================
+         BRAND
+    ================================================== -->
+
+    <section class="brand-section">
+
+
+        <h1 class="logo">
+
+            PERSPECTRA
+
+        </h1>
+
+
+        <p class="tagline">
+
+            <strong>One problem.</strong>
+            Multiple perspectives.
+
+            <br><br>
+
+            Connect, collaborate and discover
+            better ways to solve problems through
+            <strong>peer knowledge.</strong>
+
+        </p>
+
+
+        <div class="perspective-visual">
+
+            <div class="ring one"></div>
+
+            <div class="ring two"></div>
+
+            <div class="ring three"></div>
+
+            <div class="center-dot"></div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         LOGIN
+    ================================================== -->
+
+    <section class="login-section">
+
+
+        <h2 class="login-title">
+
+            Welcome back
+
+        </h2>
+
+
+        <p
+            class="login-subtitle"
+            id="loginSubtitle">
+
+            Sign in to ask, share and learn together.
+
+        </p>
+
+
+        <!-- ROLE -->
+
+        <div class="role-selector">
+
+
+            <button
+                class="role active"
+                id="studentRole"
+                type="button"
+                onclick="selectRole('student',event)">
+
+                  Student
+
+            </button>
+
+
+            <button
+                class="role"
+                id="teacherRole"
+                type="button"
+                onclick="selectRole('mentor',event)">
+
+                  Mentor
+
+            </button>
+
+
+            <button
+                class="role"
+                id="adminRole"
+                type="button"
+                onclick="selectRole('admin',event)">
+
+                  Admin
+
+            </button>
+
+
+        </div>
+
+
+        <form id="loginForm" name="loginForm" autocomplete="on" onsubmit="login(event)">
+
+        <!-- EMAIL -->
+
+        <div class="input-group">
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="Email address"
+                aria-describedby="emailError">
+
+            <div
+                class="email-error"
+                id="emailError"
+                role="alert">
+
+                Enter a valid email address.
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="input-group password-box">
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                placeholder="Password">
+
+
+            <button
+                class="show-password"
+                id="passwordToggle"
+                type="button"
+                onclick="togglePassword()">
+
+                Show
+
+            </button>
+
+        </div>
+
+
+        <!-- OPTIONS -->
+
+        <div class="options">
+
+
+            <label class="remember">
+
+                <input
+                    type="checkbox"
+                    id="remember">
+
+                Remember me
+
+            </label>
+
+
+            <span
+                class="forgot"
+                onclick="forgotPassword()">
+
+                Forgot password?
+
+            </span>
+
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            class="login-btn"
+            id="loginButton"
+            type="submit"
+            >
+
+            Login as Student
+
+        </button>
+
+
+        <div
+            class="message"
+            id="message">
+        </div>
+
+        </form>
+
+
+        <p class="security-text">
+
+            🔒 Protected by Perspectra Community Security
+
+        </p>
+
+
+    </section>
+
+
+</div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   ROLE
+========================================================= */
+
+let selectedRole = "student";
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const savedTheme =
+    localStorage.getItem("perspectra-theme");
+
+
+if(savedTheme === "light") {
+
+    document.body.classList.add("light");
+
+    document.getElementById("themeToggle")
+        .innerText = "☀️";
+
+}
+
+
+/* =========================================================
+   THEME SWITCH
+========================================================= */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light");
+
+    const light =
+        document.body.classList.contains("light");
+
+    const button =
+        document.getElementById("themeToggle");
+
+    if(light) {
+
+        button.innerText = "☀️";
+
+        localStorage.setItem(
+            "perspectra-theme",
+            "light"
+        );
+
+    }
+
+    else {
+
+        button.innerText = "🌙";
+
+        localStorage.setItem(
+            "perspectra-theme",
+            "dark"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ROLE SWITCH
+========================================================= */
+
+function selectRole(role,event) {
+      selectedRole = role;
+      createRipple(event);
+      const student = document.getElementById("studentRole");
+      const mentor = document.getElementById("teacherRole");
+      const admin = document.getElementById("adminRole");
+      const button = document.getElementById("loginButton");
+      const subtitle = document.getElementById("loginSubtitle");
+
+      [student, mentor, admin].forEach(el => el && el.classList.remove("active"));
+      if(role === "student") {
+          student.classList.add("active");
+          button.innerText = "Login as Student";
+          subtitle.innerText = "Sign in to ask, share and learn together.";
+      } else if(role === "mentor") {
+          mentor.classList.add("active");
+          button.innerText = "Login as Mentor";
+          subtitle.innerText = "Review discussions, guide students and support peer learning.";
+      } else {
+          admin.classList.add("active");
+          button.innerText = "Login as Admin";
+          subtitle.innerText = "Manage the platform, users, moderation and reports.";
+      }
+      window.dispatchEvent(new CustomEvent("rolechange", { detail: role }));
+  }
+
+  /* =========================================================
+   RIPPLE
+========================================================= */
+
+function createRipple(event) {
+
+    const button =
+        event.currentTarget;
+
+    const circle =
+        document.createElement("span");
+
+    circle.classList.add("ripple");
+
+    const diameter =
+        Math.max(
+            button.clientWidth,
+            button.clientHeight
+        );
+
+    circle.style.width =
+        diameter + "px";
+
+    circle.style.height =
+        diameter + "px";
+
+    const rect =
+        button.getBoundingClientRect();
+
+    circle.style.left =
+        event.clientX -
+        rect.left -
+        diameter / 2 +
+        "px";
+
+    circle.style.top =
+        event.clientY -
+        rect.top -
+        diameter / 2 +
+        "px";
+
+    button.appendChild(circle);
+
+    setTimeout(() => {
+
+        circle.remove();
+
+    },600);
+
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.getElementById("passwordToggle");
+
+
+    if(password.type === "password") {
+
+        password.type = "text";
+
+        button.innerText = "Hide";
+
+    }
+
+    else {
+
+        password.type = "password";
+
+        button.innerText = "Show";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function login(event) {
+
+    createRipple(event);
+
+    const email =
+        document.getElementById("email")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value.trim();
+
+    const message =
+        document.getElementById("message");
+
+
+    if(email === "" || password === "") {
+
+        message.style.color = "#ef4444";
+
+        message.innerText =
+            "Please enter your email and password.";
+
+        return;
+
+    }
+
+
+    if(!email.includes("@")) {
+
+        message.style.color = "#ef4444";
+
+        message.innerText =
+            "Please enter a valid email address.";
+
+        return;
+
+    }
+
+
+    message.style.color =
+        "var(--primary)";
+
+    message.innerText =
+        selectedRole === "student"
+            ? "Signing in as Student..."
+            : selectedRole === "mentor"
+              ? "Signing in as Mentor..."
+              : "Signing in as Admin...";
+
+
+    setTimeout(() => {
+
+    message.style.color = "var(--cyan)";
+    message.innerText = "Login successful ✓";
+
+    localStorage.setItem("perspectraLoggedIn", "true");
+    localStorage.setItem("perspectraRole", selectedRole);
+    if (selectedRole === "student") {
+        window.location.href = "home.html";
+    } else if (selectedRole === "mentor") {
+        window.location.href = "mentor.html";
+    } else {
+        window.location.href = "admin.html";
+    }
+
+}, 1000);
+}
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+function forgotPassword() {
+
+    const message =
+        document.getElementById("message");
+
+    message.style.color =
+        "var(--primary)";
+
+    message.innerText =
+        "Password recovery will be available soon.";
+
+}
+
+
+/* =========================================================
+   MOUSE FOLLOWING GLOW
+========================================================= */
+
+const mouseGlow =
+    document.getElementById("mouseGlow");
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        mouseGlow.style.left =
+            event.clientX + "px";
+
+        mouseGlow.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+/* =========================================================
+   CARD MOUSE INTERACTION
+========================================================= */
+
+const card =
+    document.querySelector(".login-wrapper");
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        const rect =
+            card.getBoundingClientRect();
+
+        const x =
+            event.clientX - rect.left;
+
+        const y =
+            event.clientY - rect.top;
+
+        const rotateX =
+            ((y / rect.height) - .5) * -2;
+
+        const rotateY =
+            ((x / rect.width) - .5) * 2;
+
+
+        /* Only subtle movement */
+
+        if(
+            x >= 0 &&
+            x <= rect.width &&
+            y >= 0 &&
+            y <= rect.height
+        ) {
+
+            card.style.transform =
+                `perspective(1000px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)`;
+
+        }
+
+        else {
+
+            card.style.transform =
+                "perspective(1000px) rotateX(0) rotateY(0)";
+
+        }
+
+    }
+);
+
+</script>
+
+<script type="module" src="firebase-login.js"></script>
+
+</body>
+
+</html>

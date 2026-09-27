@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentor Hub · Peer Help Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* PERSPECTRA GLOBAL DASHBOARD */
+.global-dashboard{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:28px;padding:14px 4%;background:rgba(10,14,39,.96);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px);font-family:Inter,Arial,sans-serif}
+body.light .global-dashboard{background:rgba(255,255,255,.96);border-bottom-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-brand{font-weight:800;font-size:20px;letter-spacing:.4px;color:#f3f1ff;text-decoration:none;white-space:nowrap}
+body.light .global-dashboard .gd-brand{color:#171b33}
+.global-dashboard .gd-nav{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+.global-dashboard .gd-nav a{color:rgba(243,241,255,.72);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;transition:.2s}
+body.light .global-dashboard .gd-nav a{color:rgba(23,27,51,.70)}
+.global-dashboard .gd-nav a:hover,.global-dashboard .gd-nav a.active{color:#fff;background:rgba(109,93,251,.18)}
+body.light .global-dashboard .gd-nav a:hover,body.light .global-dashboard .gd-nav a.active{color:#171b33;background:rgba(109,93,251,.12)}
+.global-dashboard .gd-actions{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.global-dashboard button,.global-dashboard .gd-login{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#f3f1ff;border-radius:9px;padding:8px 11px;cursor:pointer;font:600 12px Inter,Arial,sans-serif;text-decoration:none}
+body.light .global-dashboard button,body.light .global-dashboard .gd-login{background:rgba(20,24,60,.05);color:#171b33;border-color:rgba(20,24,60,.10)}
+.global-dashboard .gd-login{background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff!important;border:none}
+@media(max-width:900px){.global-dashboard{gap:10px;padding:11px 16px}.global-dashboard .gd-brand{font-size:17px}.global-dashboard .gd-nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.global-dashboard{flex-wrap:wrap}}
+
+</style>
+<style>body > header:not(.global-dashboard), body > nav:not(.global-dashboard){display:none !important;}</style>
+</head>
+<body>
+<header class="global-dashboard" id="globalDashboard">
+  <a class="gd-brand" href="home.html">PERSPECTRA</a>
+  <nav class="gd-nav">
+    <a href="discussion.html?role=mentor">Discussions & Feed</a>
+    <a href="mentor.html" class="active">Mentor Hub</a>
+    <a href="mprofile.html">Profile</a>
+  </nav>
+  <div class="gd-actions">
+    <button id="globalThemeBtn" type="button" title="Change theme">☀️</button>
+    <a class="gd-login" href="login.html" onclick="localStorage.removeItem('perspectraLoggedIn'); return true;">Logout</a>
+  </div>
+</header>
+  <style>
+  :root[data-theme="dark"]{
+    --bg:#080b1c;
+    --bg-secondary:#11152d;
+    --card:rgba(18,22,48,0.72);
+    --card-hover:rgba(27,32,65,0.88);
+    --primary:#7667ff;
+    --secondary:#c451ff;
+    --text:#f5f4ff;
+    --text-muted:#a9aac2;
+    --border:rgba(255,255,255,0.10);
+    --primary-soft:rgba(118,103,255,0.15);
+    --header:rgba(8,11,28,0.72);
+    --shadow:rgba(0,0,0,0.25);
+    --success:#4fd695;
+    --success-soft:rgba(79,214,149,0.14);
+    --warn:#ffb454;
+    --warn-soft:rgba(255,180,84,0.14);
+  }
+  :root[data-theme="light"]{
+    --bg:#dce2ee;
+    --bg-secondary:#e9ecf3;
+    --card:rgba(244,246,251,0.82);
+    --card-hover:rgba(250,251,254,0.95);
+    --primary:#6657d9;
+    --secondary:#9d4ac7;
+    --text:#25283a;
+    --text-muted:#646a7c;
+    --border:rgba(40,50,80,0.12);
+    --primary-soft:rgba(102,87,217,0.12);
+    --header:rgba(239,242,248,0.78);
+    --shadow:rgba(20,25,50,0.12);
+    --success:#1f9d6e;
+    --success-soft:rgba(31,157,110,0.12);
+    --warn:#c47a1a;
+    --warn-soft:rgba(196,122,26,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, var(--primary-soft), transparent 60%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    transition:background 0.3s ease, color 0.3s ease;
+    min-height:100vh;
+  }
+  h1,h2,h3{ font-family:'Sora', 'Inter', sans-serif; margin:0; }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--header);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .header-inner{
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; gap:24px;
+    padding:14px 28px;
+  }
+  .brand{
+    font-family:'Sora', sans-serif; font-weight:700; font-size:18px; white-space:nowrap;
+    letter-spacing:-0.01em;
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  nav{ display:flex; gap:4px; flex:1; overflow-x:auto; scrollbar-width:none; }
+  nav::-webkit-scrollbar{display:none;}
+  nav a{
+    padding:8px 14px; border-radius:20px; font-size:13.5px; font-weight:500;
+    color:var(--text-muted); text-decoration:none; white-space:nowrap;
+    transition:background 0.2s, color 0.2s;
+  }
+  nav a:hover{ color:var(--text); }
+  nav a.active{ background:var(--primary-soft); color:var(--primary); }
+
+  .header-actions{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
+
+  .theme-toggle{
+    width:36px; height:36px; border-radius:10px;
+    background:var(--bg-secondary); border:1px solid var(--border);
+    cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; color:var(--text);
+    transition:background 0.2s, border-color 0.2s;
+  }
+  .theme-toggle:hover{ border-color:var(--primary); }
+
+  .avatar{
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(135deg, var(--secondary), var(--primary));
+    flex-shrink:0;
+  }
+
+  /* ---------- Layout ---------- */
+  .page{ max-width:1200px; margin:0 auto; padding:40px 28px 80px; }
+
+  .page-head{
+    display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+    gap:28px; margin-bottom:32px;
+  }
+  .eyebrow{ color:var(--primary); font-weight:600; font-size:13px; margin-bottom:8px; }
+  .page-head h1{ font-size:30px; font-weight:700; letter-spacing:-0.01em; }
+  .page-head p{ color:var(--text-muted); font-size:14.5px; margin-top:8px; max-width:480px; line-height:1.55; }
+
+  /* summary strip instead of boxy stat cards */
+  .summary-strip{
+    display:flex; gap:28px; flex-wrap:wrap;
+  }
+  .summary-item{ display:flex; flex-direction:column; gap:2px; }
+  .summary-item .num{ font-family:'Sora',sans-serif; font-size:22px; font-weight:600; }
+  .summary-item .label{ font-size:12.5px; color:var(--text-muted); }
+  .summary-item.pending .num{ color:var(--warn); }
+  .summary-item.evaluated .num{ color:var(--success); }
+
+  /* ---------- Overview row: donut + philosophy ---------- */
+  .overview{
+    display:flex; align-items:center; gap:36px; flex-wrap:wrap;
+    padding-bottom:32px; margin-bottom:32px;
+    border-bottom:1px solid var(--border);
+  }
+  .donut-card{ display:flex; align-items:center; gap:20px; }
+  .donut-legend{ display:flex; flex-direction:column; gap:8px; }
+  .legend-dot{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--text-muted); }
+  .legend-dot span.dot{ width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
+  .legend-dot b{ color:var(--text); font-weight:600; }
+
+  /* ---------- Filters ---------- */
+  .filters{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .chip{
+    padding:7px 16px; border-radius:20px; font-size:13px; font-weight:500;
+    border:1px solid var(--border); background:transparent; color:var(--text-muted);
+    cursor:pointer; transition:all 0.2s;
+  }
+  .chip:hover{ color:var(--text); border-color:var(--primary); }
+  .chip.active{
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    color:#fff; border-color:transparent;
+  }
+  .filters .spacer{ flex:1; }
+  .sort-select{
+    background:var(--bg-secondary); color:var(--text-muted); border:1px solid var(--border);
+    border-radius:20px; padding:7px 14px; font-size:13px; cursor:pointer;
+  }
+
+  /* ---------- Queue ---------- */
+  .queue{ display:flex; flex-direction:column; gap:14px; }
+
+  .qcard{
+    padding:26px 4px;
+    border-bottom:1px solid var(--border);
+    transition:opacity 0.3s;
+  }
+  .qcard:first-child{ padding-top:4px; }
+  .qcard:last-child{ border-bottom:none; }
+  .qcard.resolved{ opacity:0.55; }
+
+  .qcard-top{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    margin-bottom:12px;
+  }
+  .qtag{
+    font-size:11.5px; font-weight:600; color:var(--primary);
+    background:var(--primary-soft); padding:4px 10px; border-radius:8px;
+  }
+  .qtime{ font-size:12px; color:var(--text-muted); }
+  .qmeta-right{ display:flex; align-items:center; gap:10px; }
+
+  .question{ font-size:15.5px; font-weight:600; line-height:1.5; margin-bottom:4px; }
+  .asker{ font-size:12.5px; color:var(--text-muted); margin-bottom:14px; }
+  .asker b{ color:var(--text); font-weight:500; }
+
+  .answer-row{
+    display:flex; align-items:flex-start; gap:12px;
+    border-left:2px solid var(--border);
+    padding:2px 0 2px 16px;
+  }
+  .mentor-avatar{
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--secondary), var(--primary));
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:600; color:#fff;
+  }
+  .answer-body{ flex:1; min-width:0; }
+  .answer-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .answer-head .name{ font-size:13.5px; font-weight:600; }
+  .answer-head .role{ font-size:11.5px; color:var(--text-muted); }
+  .answer-text{
+    font-size:13.5px; color:var(--text-muted); line-height:1.6;
+    max-height:38px; overflow:hidden; transition:max-height 0.3s ease;
+  }
+  .answer-text.expanded{ max-height:400px; }
+  .toggle-answer{
+    background:none; border:none; color:var(--primary); font-size:12.5px;
+    font-weight:600; cursor:pointer; padding:6px 0 0; display:inline-block;
+  }
+
+  .qactions{
+    display:flex; align-items:center; justify-content:flex-end; gap:10px;
+    margin-top:14px;
+  }
+  .btn{
+    border:none; border-radius:10px; padding:9px 18px; font-size:13px; font-weight:600;
+    cursor:pointer; transition:transform 0.15s, opacity 0.15s;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-flag{
+    background:transparent; color:var(--text-muted); border:1px solid var(--border);
+  }
+  .btn-flag:hover{ color:var(--text); }
+  .btn-confirm{
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    color:#fff;
+    display:flex; align-items:center; gap:6px;
+  }
+  .btn-confirm:hover{ opacity:0.92; }
+
+  .resolved-tag{
+    display:none; align-items:center; gap:8px; margin-top:14px;
+    font-size:13px; color:var(--success); font-weight:600;
+    width:fit-content; margin-left:auto;
+  }
+  .resolved-tag .pts{ color:var(--text-muted); font-weight:500; }
+  .qcard.resolved .qactions{ display:none; }
+  .qcard.resolved .resolved-tag{ display:flex; }
+
+  .empty-state{
+    text-align:center; padding:60px 20px; color:var(--text-muted);
+  }
+  .empty-state h3{ font-size:17px; color:var(--text); margin-bottom:6px; }
+  .empty-state p{ font-size:13.5px; }
+
+  footer{
+    text-align:center; padding:30px; color:var(--text-muted); font-size:12.5px;
+    border-top:1px solid var(--border); margin-top:20px;
+  }
+  .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--secondary), var(--primary));
+  flex-shrink:0;
+  cursor:pointer;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.avatar:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 18px var(--primary-soft);
+}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .overview{ grid-template-columns:1fr; }
+  }
+  @media (max-width:640px){
+    .header-inner{ padding:12px 16px; gap:14px; }
+    nav{ display:none; }
+    .page{ padding:28px 16px 60px; }
+    .page-head h1{ font-size:24px; }
+    .summary-strip{ gap:20px; }
+    .qcard-top{ flex-direction:row; }
+    .qactions{ flex-wrap:wrap; }
+    .btn{ flex:1; text-align:center; }
+    .answer-row{ flex-direction:column; }
+  }
+    </style>
+<header>
+  <div class="header-inner">
+    <div class="brand">Perspectra</div>
+    <nav>
+      <a href="discussion.html?role=mentor">Discussions &amp; Feed</a>
+      <a href="mentor.html" class="active">Mentor Hub</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☾</span>
+      </button>
+      <div class="avatar"
+     onclick="window.location.href='mprofile.html'"
+     title="Mentor Profile"></div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">Faculty &amp; Mentor Desk</div>
+      <h1>Mentor Hub</h1>
+      <p>Confirm which answers solved the problem. One tap tags the helper — no scoring, no write-ups.</p>
+    </div>
+    <div class="summary-strip">
+      <div class="summary-item pending">
+        <span class="num" id="pendingCount">6</span>
+        <span class="label">Pending</span>
+      </div>
+      <div class="summary-item evaluated">
+        <span class="num">42</span>
+        <span class="label">Tagged this week</span>
+      </div>
+      <div class="summary-item">
+        <span class="num" id="pointsCount">1,280</span>
+        <span class="label">Points auto-awarded</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overview">
+    <div class="donut-card">
+      <svg width="130" height="130" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--bg-secondary)" stroke-width="16"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--primary)" stroke-width="16"
+                stroke-dasharray="174.9 364.4" stroke-dashoffset="0" stroke-linecap="round"
+                transform="rotate(-90 75 75)"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--secondary)" stroke-width="16"
+                stroke-dasharray="116.6 364.4" stroke-dashoffset="-174.9" stroke-linecap="round"
+                transform="rotate(-90 75 75)"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--text-muted)" stroke-width="16"
+                stroke-dasharray="72.9 364.4" stroke-dashoffset="-291.5" stroke-linecap="round"
+                transform="rotate(-90 75 75)" opacity="0.5"/>
+        <text x="75" y="70" text-anchor="middle" font-family="Sora, sans-serif" font-size="20" font-weight="700" fill="var(--text)">120</text>
+        <text x="75" y="88" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="var(--text-muted)">tagged / mo</text>
+      </svg>
+      <div class="donut-legend">
+        <span class="legend-dot"><span class="dot" style="background:var(--primary)"></span><b>48%</b>&nbsp;Coding</span>
+        <span class="legend-dot"><span class="dot" style="background:var(--secondary)"></span><b>32%</b>&nbsp;Academics</span>
+        <span class="legend-dot"><span class="dot" style="background:var(--text-muted)"></span><b>20%</b>&nbsp;Projects</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="chip active" data-filter="all">All · 6</button>
+    <button class="chip" data-filter="coding">Coding</button>
+    <button class="chip" data-filter="academics">Academics</button>
+    <button class="chip" data-filter="project">Projects</button>
+    <button class="chip" data-filter="others">Others</button>
+    <div class="spacer"></div>
+    <select class="sort-select">
+      <option>Oldest pending first</option>
+      <option>Newest first</option>
+      <option>Most upvoted</option>
+    </select>
+  </div>
+
+  <div class="queue" id="queue">
+
+    <div class="qcard" data-cat="coding" data-points="15">
+      <div class="qcard-top">
+        <span class="qtag">Coding · Python</span>
+        <div class="qmeta-right">
+          <span class="qtime">2 hrs ago</span>
+        </div>
+      </div>
+      <div class="question">How do I handle recursive memoization depth in Python without triggering RecursionError?</div>
+      <div class="asker">Asked by <b>Priya Sharma</b> · CS Year 1</div>
+      <div class="answer-row">
+        <div class="mentor-avatar">AW</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Alex Wong</span>
+            <span class="role">Peer Mentor · Lvl 3</span>
+          </div>
+          <div class="answer-text">Suggested converting the recursive call into an iterative bottom-up approach with O(1) space, avoiding the recursion limit entirely rather than raising sys.setrecursionlimit(). Included a tested code snippet the asker confirmed worked on their N=1200 case.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Alex</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Alex Wong · Python Recursion <span class="pts">· +15 pts (auto)</span></div>
+    </div>
+
+    <div class="qcard" data-cat="academics" data-points="20">
+      <div class="qcard-top">
+        <span class="qtag">Academics · Calculus III</span>
+        <div class="qmeta-right">
+          <span class="qtime">5 hrs ago</span>
+        </div>
+      </div>
+      <div class="question">Stuck on step 4 in integration by parts for ∫x²e^(3x)dx. Why does the negative sign invert twice?</div>
+      <div class="asker">Asked by <b>Marcus Vance</b></div>
+      <div class="answer-row">
+        <div class="mentor-avatar">JL</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Jordan Lee</span>
+            <span class="role">Peer Mentor · Math</span>
+          </div>
+          <div class="answer-text">Explained that the sign flips because integration by parts is applied recursively, so the outer minus distributes across both nested terms. Walked through the formula expansion step by step with a worked annotation image attached.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Jordan</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Jordan Lee · Integration by Parts <span class="pts">· +20 pts (auto)</span></div>
+    </div>
+
+    <div class="qcard" data-cat="project" data-points="25">
+      <div class="qcard-top">
+        <span class="qtag">Project · Figma / UI</span>
+        <div class="qmeta-right">
+          <span class="qtime">8 hrs ago</span>
+        </div>
+      </div>
+      <div class="question">My poster layout feels cluttered. How should I distribute contrast between body copy and project stats?</div>
+      <div class="asker">Asked by <b>Elena Rostova</b></div>
+      <div class="answer-row">
+        <div class="mentor-avatar">CD</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Chloe Dubois</span>
+            <span class="role">Design Lead</span>
+          </div>
+          <div class="answer-text">Gave a 3-step hierarchy checklist: 60/30/10 canvas balance, consistent 8pt baseline spacing on paragraphs, and monospace tags reserved for callout metrics only. Asker said the poster instantly felt calmer.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Chloe</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Chloe Dubois · Layout Hierarchy <span class="pts">· +25 pts (auto)</span></div>
+    </div>
+
+    <div class="qcard" data-cat="coding" data-points="15">
+      <div class="qcard-top">
+        <span class="qtag">Coding · React</span>
+        <div class="qmeta-right">
+          <span class="qtime">yesterday</span>
+        </div>
+      </div>
+      <div class="question">useEffect keeps firing twice on mount in dev mode — is this a bug in my code or React itself?</div>
+      <div class="asker">Asked by <b>Farah Idris</b></div>
+      <div class="answer-row">
+        <div class="mentor-avatar">RK</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Ravi Kannan</span>
+            <span class="role">Peer Mentor · Lvl 2</span>
+          </div>
+          <div class="answer-text">Clarified this is expected behavior from React 18 StrictMode double-invoking effects in development only, and that it won't happen in production builds. Suggested a cleanup-function pattern to make effects idempotent.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Ravi</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Ravi Kannan · React Effects <span class="pts">· +15 pts (auto)</span></div>
+    </div>
+
+    <div class="qcard" data-cat="others" data-points="10">
+      <div class="qcard-top">
+        <span class="qtag">Others · Time Management</span>
+        <div class="qmeta-right">
+          <span class="qtime">2 days ago</span>
+        </div>
+      </div>
+      <div class="question">How do people balance 3 back-to-back deadlines without burning out the week before finals?</div>
+      <div class="asker">Asked by <b>Tomás Reyes</b></div>
+      <div class="answer-row">
+        <div class="mentor-avatar">SN</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Sana Nair</span>
+            <span class="role">Peer Mentor</span>
+          </div>
+          <div class="answer-text">Shared a simple reverse-scheduling method: block the hardest deadline's work first, then fit lighter tasks in the gaps, and always keep one buffer evening free. Asker said this reduced their weekly stress noticeably.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Sana</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Sana Nair · Study Planning <span class="pts">· +10 pts (auto)</span></div>
+    </div>
+
+    <div class="qcard" data-cat="coding" data-points="20">
+      <div class="qcard-top">
+        <span class="qtag">Coding · SQL</span>
+        <div class="qmeta-right">
+          <span class="qtime">3 days ago</span>
+        </div>
+      </div>
+      <div class="question">Why does my LEFT JOIN return duplicate rows when I add a second joined table?</div>
+      <div class="asker">Asked by <b>Wei Zhang</b></div>
+      <div class="answer-row">
+        <div class="mentor-avatar">NA</div>
+        <div class="answer-body">
+          <div class="answer-head">
+            <span class="name">Nadia Amin</span>
+            <span class="role">Peer Mentor · Lvl 4</span>
+          </div>
+          <div class="answer-text">Diagnosed it as a fan-out from the second join multiplying rows from the first, and suggested pre-aggregating the second table in a subquery before joining. Included a before/after row-count screenshot.</div>
+          <button class="toggle-answer">Show full answer</button>
+        </div>
+      </div>
+      <div class="qactions">
+        <button class="btn btn-flag">Flag</button>
+        <button class="btn btn-confirm">✓ Confirm &amp; Tag Nadia</button>
+      </div>
+      <div class="resolved-tag">✓ Tagged Nadia Amin · SQL Joins <span class="pts">· +20 pts (auto)</span></div>
+    </div>
+
+  </div>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <h3>Queue clear</h3>
+    <p>Nothing waiting in this category. Nice work.</p>
+  </div>
+
+</div>
+
+<footer>Peer Help Corner · Learn together, grow together</footer>
+
+<script>
+
+// Theme is controlled by the PERSPECTRA global dashboard.
+
+
+// Expand/collapse answer text
+
+document.querySelectorAll('.toggle-answer').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        const text = btn.previousElementSibling;
+
+        text.classList.toggle('expanded');
+
+        btn.textContent =
+            text.classList.contains('expanded')
+                ? 'Show less'
+                : 'Show full answer';
+    });
+
+});
+
+
+// Confirm & tag
+
+let pending = 6;
+let totalPoints = 1280;
+
+const pendingCountEl =
+    document.getElementById('pendingCount');
+
+const pointsCountEl =
+    document.getElementById('pointsCount');
+
+document.querySelectorAll('.btn-confirm').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        const card = btn.closest('.qcard');
+
+        if (card.classList.contains('resolved'))
+            return;
+
+        card.classList.add('resolved');
+
+        pending = Math.max(0, pending - 1);
+
+        pendingCountEl.textContent = pending;
+
+        totalPoints += parseInt(
+            card.dataset.points || '0',
+            10
+        );
+
+        pointsCountEl.textContent =
+            totalPoints.toLocaleString();
+    });
+
+});
+
+
+// Flag
+
+document.querySelectorAll('.btn-flag').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        btn.textContent = 'Flagged';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+
+    });
+
+});
+
+
+// Filters
+
+const chips =
+    document.querySelectorAll('.chip');
+
+const cards =
+    document.querySelectorAll('.qcard');
+
+const emptyState =
+    document.getElementById('emptyState');
+
+chips.forEach(chip => {
+
+    chip.addEventListener('click', () => {
+
+        chips.forEach(c =>
+            c.classList.remove('active')
+        );
+
+        chip.classList.add('active');
+
+        const filter =
+            chip.dataset.filter;
+
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+
+            const show =
+                filter === 'all' ||
+                card.dataset.cat === filter;
+
+            card.style.display =
+                show ? '' : 'none';
+
+            if (show)
+                visibleCount++;
+
+        });
+
+        emptyState.style.display =
+            visibleCount === 0
+                ? 'block'
+                : 'none';
+
+    });
+
+});
+
+
+function checkEmpty() {
+
+    const activeFilter =
+        document.querySelector('.chip.active')
+        .dataset.filter;
+
+    const visibleCards =
+        [...cards].filter(c =>
+            (activeFilter === 'all' ||
+             c.dataset.cat === activeFilter) &&
+            c.style.display !== 'none'
+        );
+}
+
+</script>
+<script type="module" src="firebase-mentor.js"></script>
+
+
+
+<script id="perspectra-global-theme">
+(function(){
+  const KEY='perspectra-theme';
+  const oldKey='perspectraTheme';
+  const saved=localStorage.getItem(KEY)||localStorage.getItem(oldKey)||'dark';
+  function apply(theme){
+    const t=theme==='light'?'light':'dark';
+    localStorage.setItem(KEY,t);
+    localStorage.setItem(oldKey,t);
+    document.documentElement.setAttribute('data-theme',t);
+    document.body.classList.toggle('light',t==='light');
+    const b=document.getElementById('globalThemeBtn');
+    if(b)b.textContent=t==='light'?'🌙':'☀️';
+  }
+  apply(saved);
+  const b=document.getElementById('globalThemeBtn');
+  if(b)b.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+})();
+</script>
+
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body>
+</html>

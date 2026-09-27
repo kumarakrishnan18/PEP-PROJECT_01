@@ -1,0 +1,3486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perspectra | Student Home</title>
+
+<style>
+
+/* =========================================================
+   ROOT THEME
+========================================================= */
+
+:root {
+
+    --bg: #080b1c;
+    --bg2: #11152d;
+
+    --card: rgba(18, 22, 48, 0.72);
+    --card-hover: rgba(27, 32, 65, 0.88);
+
+    --border: rgba(255,255,255,0.10);
+
+    --text: #f5f4ff;
+    --muted: #a9aac2;
+
+    --primary: #7667ff;
+    --secondary: #c451ff;
+
+    --soft-primary: rgba(118,103,255,0.15);
+
+    --header: rgba(8,11,28,0.72);
+
+    --shadow: rgba(0,0,0,0.25);
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light {
+
+    --bg: #dce2ee;
+    --bg2: #e9ecf3;
+
+    --card: rgba(244,246,251,0.82);
+    --card-hover: rgba(250,251,254,0.95);
+
+    --border: rgba(40,50,80,0.12);
+
+    --text: #25283a;
+    --muted: #646a7c;
+
+    --primary: #6657d9;
+    --secondary: #9d4ac7;
+
+    --soft-primary: rgba(102,87,217,0.12);
+
+    --header: rgba(239,242,248,0.78);
+
+    --shadow: rgba(50,55,80,0.12);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: var(--text);
+
+    background: var(--bg);
+
+    overflow-x: hidden;
+
+    transition:
+        background 0.5s ease,
+        color 0.5s ease;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(92,76,210,0.30),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(173,64,224,0.22),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    transition: background 0.5s ease;
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+========================================================= */
+
+.orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    opacity: 0.45;
+
+    animation:
+        floatingOrb 10s ease-in-out infinite alternate;
+}
+
+
+.orb.one {
+
+    width: 280px;
+    height: 280px;
+
+    background: #6658e8;
+
+    top: -80px;
+    left: -80px;
+}
+
+
+.orb.two {
+
+    width: 250px;
+    height: 250px;
+
+    background: #b347db;
+
+    right: -70px;
+    top: 35%;
+
+    animation-delay: 2s;
+}
+
+
+.orb.three {
+
+    width: 220px;
+    height: 220px;
+
+    background: #3f75d8;
+
+    bottom: -100px;
+    left: 40%;
+
+    animation-delay: 4s;
+}
+
+
+@keyframes floatingOrb {
+
+    from {
+        transform: translate(0,0);
+    }
+
+    to {
+        transform: translate(25px,-30px);
+    }
+}
+
+
+/* =========================================================
+   LIGHT MODE BACKGROUND
+========================================================= */
+
+body.light .background {
+
+    background:
+
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(135,145,190,0.28),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(180,145,205,0.20),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #d8deeb,
+            #e7eaf2
+        );
+}
+
+
+body.light .orb {
+
+    opacity: 0.18;
+
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    transition: opacity 0.4s ease;
+}
+
+
+.star {
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 7px white;
+
+    animation:
+        starBlink
+        var(--delay)
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+.star:nth-child(1) {
+    top: 8%;
+    left: 10%;
+    --delay: 1.3s;
+}
+
+.star:nth-child(2) {
+    top: 17%;
+    left: 28%;
+    --delay: 2.1s;
+}
+
+.star:nth-child(3) {
+    top: 10%;
+    left: 52%;
+    --delay: 1.7s;
+}
+
+.star:nth-child(4) {
+    top: 22%;
+    left: 76%;
+    --delay: 2.5s;
+}
+
+.star:nth-child(5) {
+    top: 34%;
+    left: 92%;
+    --delay: 1.5s;
+}
+
+.star:nth-child(6) {
+    top: 42%;
+    left: 14%;
+    --delay: 2.8s;
+}
+
+.star:nth-child(7) {
+    top: 50%;
+    left: 40%;
+    --delay: 1.9s;
+}
+
+.star:nth-child(8) {
+    top: 62%;
+    left: 68%;
+    --delay: 2.2s;
+}
+
+.star:nth-child(9) {
+    top: 74%;
+    left: 90%;
+    --delay: 1.4s;
+}
+
+.star:nth-child(10) {
+    top: 82%;
+    left: 18%;
+    --delay: 2.6s;
+}
+
+.star:nth-child(11) {
+    top: 90%;
+    left: 48%;
+    --delay: 1.8s;
+}
+
+.star:nth-child(12) {
+    top: 70%;
+    left: 55%;
+    --delay: 2.4s;
+}
+
+.star:nth-child(13) {
+    top: 30%;
+    left: 44%;
+    --delay: 1.6s;
+}
+
+.star:nth-child(14) {
+    top: 55%;
+    left: 82%;
+    --delay: 2.7s;
+}
+
+.star:nth-child(15) {
+    top: 12%;
+    left: 91%;
+    --delay: 2s;
+}
+
+.star:nth-child(16) {
+    top: 92%;
+    left: 76%;
+    --delay: 1.2s;
+}
+
+.star:nth-child(17) {
+    top: 38%;
+    left: 5%;
+    --delay: 2.3s;
+}
+
+.star:nth-child(18) {
+    top: 66%;
+    left: 30%;
+    --delay: 1.5s;
+}
+
+.star:nth-child(19) {
+    top: 25%;
+    left: 62%;
+    --delay: 2.9s;
+}
+
+.star:nth-child(20) {
+    top: 47%;
+    left: 58%;
+    --delay: 1.8s;
+}
+
+
+@keyframes starBlink {
+
+    from {
+        opacity: 0.2;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+
+body.light .stars {
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    width: 100%;
+
+    max-width: none;
+
+    height: 68px;
+
+    margin: 16px 0;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: var(--header);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 10px 35px var(--shadow);
+
+    top: 12px;
+
+    z-index: 100;
+
+    transition:
+        background 0.4s ease,
+        border 0.4s ease;
+}
+
+.header-inner {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    min-height: 68px;
+
+    margin: 0 auto;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 24px;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    cursor: pointer;
+}
+
+
+.logo-symbol {
+
+    width: 38px;
+    height: 38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    position: relative;
+
+    box-shadow:
+        0 0 20px
+        rgba(118,103,255,0.35);
+
+    animation:
+        logoPulse 3s ease-in-out infinite;
+}
+
+
+.logo-symbol::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border:
+        2px solid white;
+
+    border-radius: 50%;
+}
+
+
+@keyframes logoPulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+}
+
+
+.logo h1 {
+
+    font-size: 20px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav {
+
+    display: flex;
+
+    gap: 5px;
+
+    padding: 5px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,0.045);
+}
+
+
+nav a {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    padding: 9px 13px;
+
+    border-radius: 20px;
+
+    opacity: 0.65;
+
+    transition: 0.3s;
+}
+
+
+nav a:hover,
+nav a.active {
+
+    opacity: 1;
+
+    background:
+        var(--soft-primary);
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+========================================================= */
+
+.header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.icon-btn {
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.icon-btn:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.05);
+
+    background:
+        var(--soft-primary);
+}
+
+
+.profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 4px 10px 4px 4px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 25px;
+
+    cursor: pointer;
+}
+
+
+.avatar {
+
+    width: 31px;
+    height: 31px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+.profile-name {
+
+    font-size: 11px;
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding-bottom: 80px;
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome {
+
+    margin-top: 20px;
+
+    padding: 35px;
+
+    min-height: 190px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118,103,255,0.12),
+            rgba(196,81,255,0.07)
+        );
+
+    border:
+        1px solid var(--border);
+
+    backdrop-filter: blur(18px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.welcome::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    right: -80px;
+    top: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(118,103,255,0.18),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.welcome-left {
+
+    max-width: 700px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.welcome-badge {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(75,210,157,0.14);
+
+    color:
+        #62dca8;
+
+    border:
+        1px solid rgba(75,210,157,0.15);
+
+    font-size: 10px;
+
+    margin-bottom: 13px;
+}
+
+
+.welcome h2 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 37px;
+
+    line-height: 1.08;
+
+    font-weight: normal;
+
+    margin-bottom: 10px;
+}
+
+
+.welcome h2 span {
+
+    color:
+        #9a8cff;
+
+    font-style: italic;
+}
+
+
+.welcome p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   ASK BUTTON
+========================================================= */
+
+.ask-btn {
+
+    border: none;
+
+    padding: 14px 22px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(118,103,255,0.25);
+
+    transition: 0.3s;
+
+    white-space: nowrap;
+}
+
+
+.ask-btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(118,103,255,0.40);
+}
+
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.filter-bar {
+
+    margin-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+}
+
+
+.filter {
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--input);
+
+    color:
+        var(--text);
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    white-space: nowrap;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.filter:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(118,103,255,0.4);
+}
+
+
+.filter.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    border-color:
+        transparent;
+
+    color: white;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search {
+
+    margin-left: auto;
+
+    min-width: 190px;
+
+    padding: 9px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        var(--card);
+
+    color:
+        var(--text);
+
+    outline: none;
+
+    font-size: 11px;
+
+    transition: 0.3s;
+}
+
+
+.search::placeholder {
+
+    color:
+        var(--muted);
+}
+
+
+.search:focus {
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(118,103,255,0.10);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+
+    margin-top: 18px;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        300px;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+
+.section-header h3 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 19px;
+
+    font-weight: normal;
+}
+
+
+.result-count {
+
+    font-size: 10px;
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   EMPTY FEED
+========================================================= */
+
+.empty-state {
+
+    min-height: 430px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        var(--card);
+
+    backdrop-filter: blur(18px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 35px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.empty-state::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(118,103,255,0.10),
+            transparent 70%
+        );
+
+    top: -130px;
+}
+
+
+.empty-icon {
+
+    width: 75px;
+    height: 75px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118,103,255,0.18),
+            rgba(196,81,255,0.12)
+        );
+
+    border:
+        1px solid
+        rgba(118,103,255,0.20);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    margin-bottom: 18px;
+
+    position: relative;
+
+    animation:
+        emptyFloat 3s ease-in-out infinite;
+}
+
+
+@keyframes emptyFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+
+.empty-state h2 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: normal;
+
+    font-size: 24px;
+
+    margin-bottom: 8px;
+}
+
+
+.empty-state p {
+
+    max-width: 450px;
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+.empty-ask {
+
+    padding: 11px 18px;
+
+    border:
+        1px solid
+        rgba(118,103,255,0.35);
+
+    border-radius: 20px;
+
+    background:
+        var(--soft-primary);
+
+    color:
+        var(--text);
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    transition: 0.3s;
+}
+
+
+.empty-ask:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(118,103,255,0.22);
+}
+
+
+/* =========================================================
+   QUESTION CARD
+   Hidden until REAL API data exists
+========================================================= */
+
+.question-card {
+
+    display: block;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 12px 13px;
+
+    margin-bottom: 14px;
+
+    backdrop-filter: blur(18px);
+
+    transition: 0.3s;
+}
+
+
+.question-card:hover {
+
+    background:
+        var(--card-hover);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.question-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 10px;
+}
+
+
+.tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+
+.tag {
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    background:
+        var(--soft-primary);
+
+    color:
+        #aaa0ff;
+
+    font-size: 9px;
+}
+
+
+.status {
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(75,210,157,0.12);
+
+    color:
+        #62dca8;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+
+.question-card h2 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 19px;
+
+    font-weight: normal;
+
+    line-height: 1.3;
+
+    margin-bottom: 8px;
+}
+
+
+.question-description {
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin-bottom: 14px;
+}
+
+
+.question-footer {
+
+    border-top:
+        1px solid var(--border);
+
+    padding-top: 12px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: 10px;
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar-card {
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    backdrop-filter: blur(18px);
+}
+
+
+.sidebar-card h3 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+
+    font-weight: normal;
+
+    margin-bottom: 8px;
+}
+
+
+.sidebar-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   EMPTY SIDEBAR SECTIONS
+========================================================= */
+
+.sidebar-empty {
+
+    padding: 20px 10px;
+
+    text-align: center;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+.sidebar-empty-icon {
+
+    font-size: 23px;
+
+    margin-bottom: 8px;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    margin-top: 35px;
+
+    padding: 25px 3%;
+
+    border-top:
+        1px solid var(--border);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+footer strong {
+
+    color:
+        var(--text);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(4,6,18,0.68);
+
+    backdrop-filter: blur(8px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 300;
+
+    padding: 20px;
+}
+
+
+.modal.show {
+
+    display: flex;
+}
+
+
+.modal-box {
+
+    width: 100%;
+
+    max-width: 570px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background:
+        rgba(17,21,45,0.96);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    padding: 27px;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,0.35);
+}
+
+
+body.light .modal-box {
+
+    background:
+        rgba(243,246,251,0.98);
+}
+
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+}
+
+
+.modal-header h2 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: normal;
+}
+
+
+.close {
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+
+.modal-description {
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+
+
+.form-group {
+
+    margin-bottom: 14px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 10px;
+
+    color:
+        var(--muted);
+
+    margin-bottom: 6px;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    color:
+        var(--text);
+
+    outline: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    transition: 0.3s;
+}
+
+
+body.light .form-group input,
+body.light .form-group select,
+body.light .form-group textarea {
+
+    background:
+        rgba(255,255,255,0.65);
+}
+
+
+.form-group textarea {
+
+    height: 120px;
+
+    resize: vertical;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(118,103,255,0.10);
+}
+
+
+.form-buttons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.cancel {
+
+    padding: 10px 17px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+
+.post {
+
+    padding: 10px 19px;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: white;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px) {
+
+    nav {
+        display: none;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap: 15px;
+    }
+
+    .sidebar-card {
+        margin-bottom: 0;
+    }
+
+}
+
+
+@media(max-width:650px) {
+
+    .header-inner {
+
+        width: 94%;
+
+        padding: 0;
+
+    }
+
+    .profile-name {
+
+        display: none;
+
+    }
+
+    .welcome {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 25px;
+
+    }
+
+    .welcome h2 {
+
+        font-size: 29px;
+
+    }
+
+    .ask-btn {
+
+        width: 100%;
+
+    }
+
+    .filter-bar {
+
+        flex-wrap: nowrap;
+
+    }
+
+    .search {
+
+        min-width: 160px;
+
+    }
+
+    .sidebar {
+
+        display: block;
+
+    }
+
+    .sidebar-card {
+
+        margin-bottom: 15px;
+
+    }
+
+    footer {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+}
+/* ================================
+   GLOBAL TEXT VISIBILITY
+================================ */
+
+body {
+    font-size: 16px;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.logo h1 {
+    font-size: 23px;
+    font-weight: 700;
+}
+
+nav a {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* ================================
+   WELCOME SECTION
+================================ */
+
+.welcome-badge {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.welcome h2 {
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.welcome p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.ask-btn {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.filter {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+.search {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* ================================
+   SECTION HEADINGS
+================================ */
+
+.section-header h3 {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.result-count {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ================================
+   EMPTY STATE
+================================ */
+
+.empty-state h2 {
+    font-size: 29px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.empty-ask {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   QUESTION CARDS
+================================ */
+
+.question-card h2 {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.question-description {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.tag {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.question-footer {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar-card h3 {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.sidebar-card p {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sidebar-empty {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+footer strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+.modal-header h2 {
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.modal-description {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.cancel,
+.post {
+    font-size: 14px;
+    font-weight: 700;
+}
+body.light .welcome-badge {
+    color: #172033;
+    background: rgba(75, 210, 157, 0.24);
+    border: 1px solid rgba(45, 100, 75, 0.20);
+    font-weight: 700;
+}
+
+</style>
+
+<style>.home-login-link{display:inline-block;margin-left:8px;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:700;font-size:12px;background:linear-gradient(90deg,#7c6cfb,#3fa9f5);color:#fff}</style></head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="background">
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+
+    <div class="stars">
+
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+<div class="header-inner">
+
+    <div class="logo">
+
+        <div class="logo-symbol"></div>
+
+        <h1>Perspectra</h1>
+
+    </div>
+
+
+    <nav>
+
+        <a
+            href="#"
+            class="active">
+            Discussions & Feed
+        </a>
+
+        <a
+            href="#"
+            onclick="openAskModal()">
+            Ask a Doubt
+        </a>
+
+        <a href="mentor.html">
+            Mentor Hub
+        </a>
+
+        <a href="leaderboard.html">
+            Leaderboard & Skills
+        </a>
+
+    </nav>
+
+
+    <div class="header-right">
+
+        <button
+            class="icon-btn"
+            id="themeButton"
+            onclick="toggleTheme()">
+
+            ☀️
+
+        </button>
+
+
+        <!--
+            Name will eventually come from
+            the logged-in user's backend session.
+        -->
+<div
+    class="profile"
+    id="profile"
+    onclick="window.location.href = (localStorage.getItem('perspectraRole') === 'admin' ? 'aprofile.html' : localStorage.getItem('perspectraRole') === 'mentor' ? 'mprofile.html' : 'sprofile.html')">
+
+    <div class="avatar">
+    </div>
+
+</div>
+
+<a href="login.html" class="home-login-link" onclick="localStorage.removeItem('perspectraLoggedIn');">Logout</a>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container">
+
+
+    <!-- =====================================================
+         WELCOME
+    ===================================================== -->
+
+    <section class="welcome">
+
+        <div class="welcome-left">
+
+            <div class="welcome-badge">
+
+                ● Student Community
+
+            </div>
+
+
+            <h2>
+
+                What are you working through
+                <span>today?</span>
+
+            </h2>
+
+
+            <p>
+
+                Share a problem you're facing,
+                explore different perspectives,
+                and learn from your community.
+
+            </p>
+
+        </div>
+
+
+        <button
+            class="ask-btn"
+            onclick="openAskModal()">
+
+            + Ask a Doubt
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FILTERS
+    ===================================================== -->
+
+    <section class="filter-bar">
+
+        <button
+            class="filter active"
+            data-category="all">
+
+            ✦ All Doubts
+
+        </button>
+
+
+        <button
+            class="filter"
+            data-category="academics">
+
+            📚 Academics
+
+        </button>
+
+
+        <button
+            class="filter"
+            data-category="projects">
+
+            🛠 Projects
+
+        </button>
+
+
+        <button
+            class="filter"
+            data-category="coding">
+
+            💻 Coding
+
+        </button>
+
+
+        <button
+            class="filter"
+            data-category="others">
+
+            ◇ Others
+
+        </button>
+
+
+        <input
+            type="search"
+            id="search"
+            class="search"
+            placeholder="⌕ Search doubts..."
+            oninput="searchQuestions()">
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTENT
+    ===================================================== -->
+
+    <div class="content">
+
+
+        <!-- =================================================
+             DISCUSSION FEED
+        ================================================= -->
+
+        <section>
+
+            <div class="section-header">
+
+                <h3>
+                    Discussions
+                </h3>
+
+                <span
+                    class="result-count"
+                    id="resultCount">
+
+                    No discussions yet
+
+                </span>
+
+            </div>
+
+
+            <!-- =============================================
+                 EMPTY STATE
+            ============================================== -->
+
+            <div
+                class="empty-state"
+                id="emptyState">
+
+                <div class="empty-icon">
+
+                    💭
+
+                </div>
+
+
+                <h2>
+                    No discussions yet
+                </h2>
+
+
+                <p>
+
+                    This space will grow with your community.
+                    When a student asks a doubt, it will appear
+                    here for others to explore and contribute
+                    their perspective.
+
+                </p>
+
+
+                <button
+                    class="empty-ask"
+                    onclick="openAskModal()">
+
+                    Ask the first doubt →
+
+                </button>
+
+            </div>
+
+
+            <!-- =============================================
+                 REAL QUESTIONS WILL BE INSERTED HERE
+            ============================================== -->
+
+            <div id="questionFeed"></div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================= -->
+
+        <aside class="sidebar">
+
+
+            <!-- =============================================
+                 COMMUNITY
+            ============================================== -->
+
+            <div class="sidebar-card">
+
+                <h3>
+                    ✦ Community
+                </h3>
+
+                <div class="sidebar-empty" id="communityPanel">
+
+                    <div class="sidebar-empty-icon">
+                        ◌
+                    </div>
+
+                    Community activity will appear
+                    here as students participate.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 TRENDING
+            ============================================== -->
+
+            <div class="sidebar-card">
+
+                <h3>
+                    ◈ Trending Subjects
+                </h3>
+
+                <div
+                    class="sidebar-empty" id="trendingPanel">
+
+                    <div class="sidebar-empty-icon">
+                        ◇
+                    </div>
+
+                    Subjects will appear here once
+                    students start posting doubts.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 MENTOR HUB
+            ============================================== -->
+
+            <div class="sidebar-card">
+
+                <h3>
+                    ◎ Mentor Hub
+                </h3>
+
+                <div
+                    class="sidebar-empty" id="mentorPanel">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 LEADERBOARD
+            ============================================== -->
+
+            <div class="sidebar-card">
+
+                <h3>
+                    ♛ Leaderboard
+                </h3>
+
+                <div
+                    class="sidebar-empty" id="homeLeaderboardPanel">
+
+                    <div class="sidebar-empty-icon">
+                        ☆
+                    </div>
+
+                    Skill rankings will appear once
+                    contributions are evaluated.
+
+                </div>
+
+            </div>
+
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     ASK DOUBT MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="askModal">
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Ask a Doubt
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeAskModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <p class="modal-description">
+
+            Explain what you're struggling with.
+            Other students can share their perspectives
+            and alternative approaches.
+
+        </p>
+
+
+        <form
+            id="doubtForm"
+            onsubmit="submitDoubt(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Category
+                </label>
+
+                <select
+                    id="category"
+                    required>
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="academics">
+                        Academics
+                    </option>
+
+                    <option value="projects">
+                        Projects
+                    </option>
+
+                    <option value="coding">
+                        Coding
+                    </option>
+
+                    <option value="others">
+                        Others
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="subject"
+                    placeholder="Example: Database Management"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Question title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="What are you stuck on?"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Explain your problem
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Tell the community what you tried and where you need another perspective..."
+                    required></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Tags
+                </label>
+
+                <input
+                    type="text"
+                    id="tags"
+                    placeholder="Example: Python, Arrays, Logic">
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button
+                    type="button"
+                    class="cancel"
+                    onclick="closeAskModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="post">
+
+                    Post Doubt
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div>
+
+        <strong>
+            ✦ Perspectra
+        </strong>
+
+        <br><br>
+
+        One problem. Multiple perspectives.
+
+    </div>
+
+
+    <div>
+
+        Academics · Projects · Coding · Others
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+/*
+    IMPORTANT:
+
+    This is the API endpoint your backend will provide.
+
+    Example:
+
+    GET
+    http://localhost:5000/api/questions
+
+    The frontend does NOT contain fake questions.
+*/
+
+const API_URL = "/api/questions";
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+let questions = [];
+
+let currentCategory = "all";
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light");
+
+    const isLight =
+        document.body.classList.contains("light");
+
+
+    const button =
+        document.getElementById("themeButton");
+
+
+    if (isLight) {
+
+        button.textContent = "🌙";
+
+        localStorage.setItem(
+            "perspectra-theme",
+            "light"
+        );
+
+    }
+
+    else {
+
+        button.textContent = "☀️";
+
+        localStorage.setItem(
+            "perspectra-theme",
+            "dark"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD THEME
+========================================================= */
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem(
+            "perspectra-theme"
+        );
+
+
+    if (savedTheme === "light") {
+
+        document.body.classList.add("light");
+
+        document.getElementById(
+            "themeButton"
+        ).textContent = "🌙";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD QUESTIONS FROM BACKEND
+========================================================= */
+
+async function loadQuestions() {
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "GET",
+
+                credentials: "include",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                }
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load discussions"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+            Expected backend response:
+
+            [
+                {
+                    questionId: "...",
+                    category: "coding",
+                    subject: "Python",
+                    title: "...",
+                    description: "...",
+                    tags: [],
+                    status: "...",
+                    createdAt: "...",
+                    author: "..."
+                }
+            ]
+        */
+
+
+        questions =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        displayQuestions(
+            questions
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Question loading error:",
+            error
+        );
+
+
+        /*
+            No fake data is inserted.
+
+            If the database contains no questions,
+            the page remains empty.
+
+            If the backend is temporarily unavailable,
+            we simply show the empty feed rather than
+            inventing content.
+        */
+
+        questions = [];
+
+        displayQuestions([]);
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY QUESTIONS
+========================================================= */
+
+function displayQuestions(data) {
+
+    const feed =
+        document.getElementById(
+            "questionFeed"
+        );
+
+
+    const emptyState =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    const resultCount =
+        document.getElementById(
+            "resultCount"
+        );
+
+
+    feed.innerHTML = "";
+
+
+    if (!data || data.length === 0) {
+
+        emptyState.style.display =
+            "flex";
+
+        resultCount.textContent =
+            "No discussions yet";
+
+        return;
+
+    }
+
+
+    emptyState.style.display =
+        "none";
+
+
+    resultCount.textContent =
+        data.length +
+        (data.length === 1
+            ? " discussion"
+            : " discussions");
+
+
+    data.forEach(question => {
+
+        const card =
+            createQuestionCard(question);
+
+
+        feed.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   CREATE QUESTION CARD
+========================================================= */
+
+function createQuestionCard(question) {
+
+    const article =
+        document.createElement("article");
+
+
+    article.className =
+        "question-card";
+
+
+    /*
+        This card is intentionally generated
+        ONLY from backend data.
+    */
+
+
+    const tags =
+        Array.isArray(question.tags)
+            ? question.tags
+            : [];
+
+
+    const tagHTML =
+        tags.map(tag => {
+
+            return `
+                <span class="tag">
+                    ${escapeHTML(tag)}
+                </span>
+            `;
+
+        }).join("");
+
+
+    article.innerHTML = `
+
+        <div class="question-top">
+
+            <div class="tags">
+
+                <span class="tag">
+
+                    ${escapeHTML(
+                        question.subject || "General"
+                    )}
+
+                </span>
+
+                ${tagHTML}
+
+            </div>
+
+
+            <span class="status">
+
+                ${escapeHTML(
+                    question.status || "Open"
+                )}
+
+            </span>
+
+        </div>
+
+
+        <h2>
+
+            ${escapeHTML(
+                question.title || ""
+            )}
+
+        </h2>
+
+
+        <p class="question-description">
+
+            ${escapeHTML(
+                question.description || ""
+            )}
+
+        </p>
+
+
+        <div class="question-footer">
+
+            <span>
+
+                ${escapeHTML(
+                    question.author || "Student"
+                )}
+
+            </span>
+
+
+            <span>
+
+                💬
+                ${question.answerCount || 0}
+                answers
+
+            </span>
+
+        </div>
+
+    `;
+
+
+    article.style.display =
+        "block";
+
+
+    return article;
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+/*
+    User-generated content must NEVER be inserted
+    directly into innerHTML without escaping.
+*/
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function filterQuestions(
+    category,
+    button
+) {
+
+    currentCategory =
+        category;
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    applyFilters();
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchQuestions() {
+
+    applyFilters();
+
+}
+
+
+/* =========================================================
+   APPLY FILTERS
+========================================================= */
+
+function applyFilters() {
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        questions.filter(question => {
+
+
+            const categoryMatch =
+
+                currentCategory === "all"
+
+                ||
+
+                question.category ===
+                    currentCategory;
+
+
+            const searchableText = `
+
+                ${question.title || ""}
+
+                ${question.description || ""}
+
+                ${question.subject || ""}
+
+                ${(question.tags || []).join(" ")}
+
+            `.toLowerCase();
+
+
+            const searchMatch =
+                searchableText.includes(
+                    search
+                );
+
+
+            return (
+                categoryMatch &&
+                searchMatch
+            );
+
+        });
+
+
+    displayQuestions(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   ASK DOUBT MODAL
+========================================================= */
+
+function openAskModal() {
+
+    document
+        .getElementById("askModal")
+        .classList.add("show");
+
+}
+
+
+function closeAskModal() {
+
+    document
+        .getElementById("askModal")
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   SUBMIT DOUBT
+========================================================= */
+
+async function submitDoubt(event) {
+
+    event.preventDefault();
+
+
+    const category =
+        document
+            .getElementById("category")
+            .value;
+
+
+    const subject =
+        document
+            .getElementById("subject")
+            .value
+            .trim();
+
+
+    const title =
+        document
+            .getElementById("title")
+            .value
+            .trim();
+
+
+    const description =
+        document
+            .getElementById("description")
+            .value
+            .trim();
+
+
+    const tagsText =
+        document
+            .getElementById("tags")
+            .value
+            .trim();
+
+
+    const tags =
+        tagsText
+            ? tagsText
+                .split(",")
+                .map(tag => tag.trim())
+                .filter(Boolean)
+            : [];
+
+
+    /*
+        REAL API REQUEST
+
+        The backend will:
+
+        1. Authenticate the student
+        2. Validate the input
+        3. Check moderation/security
+        4. Store the question in MongoDB
+        5. Return the created question
+    */
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                credentials: "include",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    category,
+                    subject,
+                    title,
+                    description,
+                    tags
+
+                })
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Question could not be posted"
+            );
+
+        }
+
+
+        /*
+            Clear the form only after
+            successful backend submission.
+        */
+
+        document
+            .getElementById(
+                "doubtForm"
+            )
+            .reset();
+
+
+        closeAskModal();
+
+
+        /*
+            Reload from the database.
+
+            This ensures the feed shows
+            the actual stored question.
+        */
+
+        await loadQuestions();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Posting error:",
+            error
+        );
+
+
+        alert(
+            "Your doubt could not be posted right now. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+document
+    .getElementById("askModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeAskModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+loadTheme();
+
+void 0;
+
+</script>
+
+
+
+<script type="module" src="firebase-home.js"></script>
+<script id="perspectra-role-navigation">
+(function(){
+  const role = localStorage.getItem('perspectraRole') || 'student';
+  const navs = document.querySelectorAll('.global-dashboard .gd-nav');
+  navs.forEach(nav => {
+    nav.querySelectorAll('a').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0];
+      if(role !== 'student' && href === 'ask-doubt.html') a.remove();
+      if(role === 'student' && href === 'mentor.html') a.remove();
+      if(role !== 'admin' && href === 'admin.html') a.remove();
+      if(role === 'admin' && href === 'mprofile.html') a.remove();
+      if(role === 'mentor' && href === 'sprofile.html') a.remove();
+    });
+    if(role === 'admin' && !nav.querySelector('a[href="admin.html"]')){
+      const a=document.createElement('a'); a.href='admin.html'; a.textContent='Admin'; nav.appendChild(a);
+    }
+    if(role === 'admin'){
+      nav.querySelectorAll('a[href="sprofile.html"],a[href="mprofile.html"]').forEach(a=>a.remove());
+    }
+    if(role === 'mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role === 'student' && !nav.querySelector('a[href="sprofile.html"]')){
+      const a=document.createElement('a'); a.href='sprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+
+  // Any normal page navs: remove Ask a Doubt for mentor/admin and Mentor Hub for student.
+  document.querySelectorAll('nav:not(.gd-nav)').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const href=(a.getAttribute('href')||'').split('?')[0];
+      if(role!=='student' && href==='ask-doubt.html') a.remove();
+      if(role==='student' && href==='mentor.html') a.remove();
+      if(role!=='admin' && href==='admin.html') a.remove();
+    });
+  });
+
+  // Home/profile buttons that use direct onclick routing.
+  const profile = document.getElementById('profile');
+  if(profile) profile.onclick = function(){
+    window.location.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+  };
+  const profileNav = document.getElementById('profileNavLink');
+  if(profileNav) profileNav.href = role==='admin' ? 'aprofile.html' : role==='mentor' ? 'mprofile.html' : 'sprofile.html';
+})();
+</script>
+
+<script type="module" src="firebase-session.js"></script>
+<script type="module" src="firebase-avatar.js"></script>
+<script id="perspectra-access-guard">
+(function(){
+ void 0;
+})();
+</script>
+
+<script id="perspectra-role-final-nav">
+(function(){
+  const role=localStorage.getItem('perspectraRole');
+  if(!role) return;
+  document.querySelectorAll('.global-dashboard .gd-nav').forEach(nav=>{
+    nav.querySelectorAll('a').forEach(a=>{
+      const h=(a.getAttribute('href')||'').split('?')[0];
+      if((role==='mentor'||role==='admin') && h==='ask-doubt.html') a.remove();
+      if(role==='student' && h==='mentor.html') a.remove();
+      if(role!=='admin' && h==='admin.html') a.remove();
+    });
+    if(role==='student'){
+      const a=nav.querySelector('a[href="sprofile.html"]');
+      if(a) a.href='sprofile.html';
+    }
+    if(role==='mentor' && !nav.querySelector('a[href="mprofile.html"]')){
+      const a=document.createElement('a'); a.href='mprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+    if(role==='admin' && !nav.querySelector('a[href="aprofile.html"]')){
+      const a=document.createElement('a'); a.href='aprofile.html'; a.textContent='Profile'; nav.appendChild(a);
+    }
+  });
+})();
+</script>
+</body>
+
+</html>
